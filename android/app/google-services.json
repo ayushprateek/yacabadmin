@@ -1,0 +1,135 @@
+{
+  "project_info": {
+    "project_number": "784907664813",
+    "firebase_url": "https://ya-cab-default-rtdb.firebaseio.com",
+    "project_id": "ya-cab",
+    "storage_bucket": "ya-cab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784907664813:android:c2d9506c3d958cdda47524",
+        "android_client_info": {
+          "package_name": "com.yacab.yacab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784907664813-ftktd2tcckeqqsksft7vgj4ju4fg9q5d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yacab.yacab",
+            "certificate_hash": "c95143de28eebb363e5f28207a682595b186d485"
+          }
+        },
+        {
+          "client_id": "784907664813-f3jv4trogvl19trv8dkvbrvfk71fjlje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChGNy_n2-XCiEZ47p1m69hU7K3fzxltzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784907664813-f3jv4trogvl19trv8dkvbrvfk71fjlje.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "784907664813-fe7nk5ntiov46g7fo3t5j2fmkio3aitl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yacab.yacabfordrivers"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784907664813:android:bea04ddd7902f374a47524",
+        "android_client_info": {
+          "package_name": "com.yacab.yacabadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784907664813-f3jv4trogvl19trv8dkvbrvfk71fjlje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChGNy_n2-XCiEZ47p1m69hU7K3fzxltzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784907664813-f3jv4trogvl19trv8dkvbrvfk71fjlje.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "784907664813-fe7nk5ntiov46g7fo3t5j2fmkio3aitl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yacab.yacabfordrivers"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784907664813:android:d841356b7b65e6fea47524",
+        "android_client_info": {
+          "package_name": "com.yacab.yacabfordrivers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784907664813-4iui3pqapn05a1eoa0ds71feo3llffts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yacab.yacabfordrivers",
+            "certificate_hash": "c95143de28eebb363e5f28207a682595b186d485"
+          }
+        },
+        {
+          "client_id": "784907664813-f3jv4trogvl19trv8dkvbrvfk71fjlje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChGNy_n2-XCiEZ47p1m69hU7K3fzxltzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784907664813-f3jv4trogvl19trv8dkvbrvfk71fjlje.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "784907664813-fe7nk5ntiov46g7fo3t5j2fmkio3aitl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yacab.yacabfordrivers"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
