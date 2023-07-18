@@ -90,7 +90,7 @@ class _SubCategoriesState extends State<SubCategories> {
                           Widget image = FutureBuilder(
                               future: imageurl(categories[index]['image']),
                               builder: (context, AsyncSnapshot<Url> snap) {
-                                if (!snapshot.hasData)
+                                if (!snap.hasData)
                                   return Image.asset(
                                     'images/Logo2.png',
                                     fit: BoxFit.cover,

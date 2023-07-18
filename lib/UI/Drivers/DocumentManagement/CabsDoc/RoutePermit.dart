@@ -143,6 +143,7 @@ class _RoutePermitState extends State<RoutePermit> {
                   imageWidget = FutureBuilder(
                       future: imageurl(image[0]['image']),
                       builder: (context, AsyncSnapshot<Url> snap) {
+                        if (!snap.hasData) return Container();
                         try {
                           return Image.network(snap.data?.image);
                         } catch (e) {}

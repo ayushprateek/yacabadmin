@@ -143,7 +143,7 @@ class _EditSubcategoriesState extends State<EditSubcategories> {
                           Widget image = FutureBuilder(
                               future: imageurl(categoryList[index]['image']),
                               builder: (context, AsyncSnapshot<Url> snap) {
-                                if (!snapshot.hasData)
+                                if (!snap.hasData)
                                   return Image.asset(
                                     'images/Logo2.png',
                                     fit: BoxFit.cover,
