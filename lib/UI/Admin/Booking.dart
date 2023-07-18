@@ -1,10 +1,8 @@
 import 'dart:async';
 
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:yacabadmin/Components/Customs.dart';
 import 'package:yacabadmin/Services/CustomLaunchURL.dart';
@@ -25,9 +23,9 @@ class _BookingState extends State<Booking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).buttonColor,
+      backgroundColor: buttonColor,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).buttonColor,
+        backgroundColor: buttonColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -177,7 +175,7 @@ class _BookingState extends State<Booking> {
                                     ),
                                   ),
                                 ),
-                                color: Theme.of(context).buttonColor,
+                                color: buttonColor,
                               ),
                             ))
                           ],
@@ -232,7 +230,7 @@ class _BookingState extends State<Booking> {
                                     ),
                                   ),
                                 ),
-                                color: Theme.of(context).buttonColor,
+                                color: buttonColor,
                               ),
                             )
                           ],
@@ -296,7 +294,7 @@ class _BookingState extends State<Booking> {
                                     ),
                                   ),
                                 ),
-                                color: Theme.of(context).buttonColor,
+                                color: buttonColor,
                               ),
                             )
                           ],
@@ -347,7 +345,7 @@ class _BookingState extends State<Booking> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: HexColor("#4CD864")),
+                                    color: Color(0XFF4CD864)),
                               ),
                             ),
                             Spacer(),
@@ -386,7 +384,7 @@ class _BookingState extends State<Booking> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: HexColor("#4CD864")),
+                                    color: Color(0XFF4CD864)),
                               ),
                             ),
                             Spacer(),
@@ -565,7 +563,8 @@ class _BookingState extends State<Booking> {
                                           builder: (BuildContext context) {
                                             return ClassicGeneralDialogWidget(
                                               titleText: 'Complete',
-                                              contentText: 'Are you sure you want to complete the trip?',
+                                              contentText:
+                                                  'Are you sure you want to complete the trip?',
                                               negativeText: 'Cancel',
                                               positiveText: "DROP OFF",
                                               onPositiveClick: () {
@@ -610,7 +609,7 @@ class _BookingState extends State<Booking> {
                                         //             fontSize: 20),
                                         //       ),
                                         //       color:
-                                        //           Theme.of(context).buttonColor,
+                                        //           buttonColor,
                                         //     ),
                                         //   ),
                                         //   secondButton: Container(
@@ -645,7 +644,7 @@ class _BookingState extends State<Booking> {
                                             fontWeight: FontWeight.w800,
                                             fontSize: 20),
                                       ),
-                                      color: Theme.of(context).buttonColor,
+                                      color: buttonColor,
                                     ),
                                   )),
                             )

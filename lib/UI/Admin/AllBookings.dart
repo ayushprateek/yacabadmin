@@ -22,9 +22,9 @@ class _AllBookingsState extends State<AllBookings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).buttonColor,
+      backgroundColor: buttonColor,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).buttonColor,
+        backgroundColor: buttonColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -211,7 +211,7 @@ class _FilterClassState extends State<FilterClass> {
             child: Row(
               children: [
                 Radio(
-                  activeColor: Theme.of(context).buttonColor,
+                  activeColor: buttonColor,
                   onChanged: (val) {
                     setState(() {
                       filter = Filter.all;
@@ -242,7 +242,7 @@ class _FilterClassState extends State<FilterClass> {
                       filter = Filter.today;
                     });
                   },
-                  activeColor: Theme.of(context).buttonColor,
+                  activeColor: buttonColor,
                   value: filter,
                   groupValue: Filter.today,
                 ),
@@ -268,7 +268,7 @@ class _FilterClassState extends State<FilterClass> {
                       filter = Filter.this_month;
                     });
                   },
-                  activeColor: Theme.of(context).buttonColor,
+                  activeColor: buttonColor,
                   value: filter,
                   groupValue: Filter.this_month,
                 ),
@@ -294,7 +294,7 @@ class _FilterClassState extends State<FilterClass> {
                       filter = Filter.this_year;
                     });
                   },
-                  activeColor: Theme.of(context).buttonColor,
+                  activeColor: buttonColor,
                   value: filter,
                   groupValue: Filter.this_year,
                 ),

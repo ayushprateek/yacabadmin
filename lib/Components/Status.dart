@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-enum status{pending,approved,disaproved}
-class StatusName
-{
-  static String name="Pending";
-  static status s=status.pending;
+
+enum status { pending, approved, disaproved }
+
+class StatusName {
+  static String name = "Pending";
+  static status s = status.pending;
 }
+
 class Status extends StatefulWidget {
   @override
   _StatusState createState() => _StatusState();
@@ -16,83 +18,86 @@ class _StatusState extends State<Status> {
     return Column(
       children: [
         InkWell(
-          onTap: (){
+          onTap: () {
             setState(() {
-              StatusName.s=status.pending;
+              StatusName.s = status.pending;
             });
           },
           child: Row(
             children: [
               Radio(
                 value: StatusName.s,
-                groupValue: status.pending, onChanged: (status? value) {
-                setState(() {
-                  StatusName.s=status.pending;
-                });
-              },
+                groupValue: status.pending,
+                onChanged: (status? value) {
+                  setState(() {
+                    StatusName.s = status.pending;
+                  });
+                },
               ),
-              Text("Pending",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 17
-              ),),
-            ],
-          ),
-        ),
-
-        InkWell(
-          onTap: (){
-            setState(() {
-              StatusName.s=status.approved;
-            });
-          },
-          child: Row(
-            children: [
-              Radio(
-                value: StatusName.s,
-                groupValue: status.approved, onChanged: (status? value) {
-                setState(() {
-                  StatusName.s=status.approved;
-                });
-              },
-              ),
-              Text("Approved",
+              Text(
+                "Pending",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontSize: 17
-                ),),
+                    fontSize: 17),
+              ),
             ],
           ),
         ),
-
         InkWell(
-          onTap: (){
+          onTap: () {
             setState(() {
-              StatusName.s=status.disaproved;
+              StatusName.s = status.approved;
             });
           },
           child: Row(
             children: [
               Radio(
                 value: StatusName.s,
-                groupValue: status.disaproved, onChanged: (status? value) {
-                setState(() {
-                  StatusName.s=status.disaproved;
-                });
-              },
+                groupValue: status.approved,
+                onChanged: (status? value) {
+                  setState(() {
+                    StatusName.s = status.approved;
+                  });
+                },
               ),
-              Text("Disapproved",
+              Text(
+                "Approved",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontSize: 17
-                ),),
+                    fontSize: 17),
+              ),
             ],
           ),
         ),
-
+        InkWell(
+          onTap: () {
+            setState(() {
+              StatusName.s = status.disaproved;
+            });
+          },
+          child: Row(
+            children: [
+              Radio(
+                value: StatusName.s,
+                groupValue: status.disaproved,
+                onChanged: (status? value) {
+                  setState(() {
+                    StatusName.s = status.disaproved;
+                  });
+                },
+              ),
+              Text(
+                "Disapproved",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

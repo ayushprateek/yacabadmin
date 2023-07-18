@@ -6,14 +6,13 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:yacabadmin/Components/Customs.dart';
-Future<void> main()
-async {
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -69,7 +68,7 @@ class _AddBannersState extends State<AddBanners> {
 
       fileName = 'product/$fileName';
       Reference firebaseStorageRef =
-      FirebaseStorage.instance.ref().child(fileName ?? "");
+          FirebaseStorage.instance.ref().child(fileName ?? "");
 
       UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
       await uploadTask.then((p0) {
@@ -150,7 +149,7 @@ class _AddBannersState extends State<AddBanners> {
     final byteData = await asset.getByteData();
 
     final tempFile =
-    File("${(await getTemporaryDirectory()).path}/${asset.name}");
+        File("${(await getTemporaryDirectory()).path}/${asset.name}");
     final file = await tempFile.writeAsBytes(
       byteData.buffer
           .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes),
@@ -198,7 +197,7 @@ class _AddBannersState extends State<AddBanners> {
         fillePath.add(fileName);
 
         Reference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(fileName ?? "");
+            FirebaseStorage.instance.ref().child(fileName ?? "");
 
         UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
         await uploadTask.then((p0) {
@@ -266,7 +265,7 @@ class _AddBannersState extends State<AddBanners> {
             //   )
             //       : IconButton(
             //     iconSize: MediaQuery.of(context).size.width,
-            //     icon: Icon(Icons.camera_alt,color: Theme.of(context).buttonColor,size: MediaQuery.of(context).size.width,
+            //     icon: Icon(Icons.camera_alt,color: buttonColor,size: MediaQuery.of(context).size.width,
             //     ),
             //     onPressed: pickImage,
             //   ),
@@ -279,7 +278,7 @@ class _AddBannersState extends State<AddBanners> {
                     icon: Icon(
                       Icons.add_a_photo,
                       size: 50,
-                      color: HexColor("#4CD864"),
+                      color: Color(0XFF4CD864),
                     ),
                     onPressed: loadAssets,
                   ),
@@ -363,7 +362,8 @@ class _AddBannersState extends State<AddBanners> {
         .once()
         .then((DatabaseEvent datasnapshot) {
       try {
-        int newKey = int.parse(datasnapshot.snapshot.children.first.key.toString()) + 1;
+        int newKey =
+            int.parse(datasnapshot.snapshot.children.first.key.toString()) + 1;
         for (int i = 0; i < fillePath.length; i++, newKey++) {
           banner_id = newKey + 1;
           firRef.child("Banners").child(newKey.toString()).set({

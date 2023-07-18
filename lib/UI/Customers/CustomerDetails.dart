@@ -1,51 +1,59 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:yacabadmin/Components/Customs.dart';
 import 'package:yacabadmin/Services/CustomLaunchURL.dart';
+import 'package:yacabadmin/UI/Admin/AllBookings.dart';
 import 'package:yacabadmin/UI/Customers/EditCustomers.dart';
 
-import 'package:yacabadmin/UI/Admin/AllBookings.dart';
 class CustomersAccount extends StatefulWidget {
-  String customer_id,name;
-  CustomersAccount({
-    required this.name,
-    required this.customer_id
-});
+  String customer_id, name;
+
+  CustomersAccount({required this.name, required this.customer_id});
+
   @override
   _CustomersAccountState createState() => _CustomersAccountState();
 }
+
 class _CustomersAccountState extends State<CustomersAccount> {
-  List customer=[];
+  List customer = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, color: Colors.black,size: 30,),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 30,
+          ),
         ),
-        title: Text(widget.name==null?"Customers's Account":widget.name,
+        title: Text(
+          widget.name == null ? "Customers's Account" : widget.name,
           style: TextStyle(
             fontWeight: FontWeight.w900,
-
-          ),),
-
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               StreamBuilder(
-                stream: firRef.child("Customers").orderByChild("customer_id").equalTo(widget.customer_id).onValue,
-                builder: (context,snapshot){
-                  if(!snapshot.hasData)
-                    return Container();
+                stream: firRef
+                    .child("Customers")
+                    .orderByChild("customer_id")
+                    .equalTo(widget.customer_id)
+                    .onValue,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return Container();
                   customer.clear();
                   DatabaseEvent? databaseEvent = snapshot.data as DatabaseEvent;
                   databaseEvent.snapshot.children.forEach((event) {
@@ -76,29 +84,38 @@ class _CustomersAccountState extends State<CustomersAccount> {
                   //         }
                   //     });
                   // }
-                  if(customer.length!=0)
-                  {
+                  if (customer.length != 0) {
                     return ListView.builder(
                         itemCount: customer.length,
                         shrinkWrap: true,
                         physics: ScrollPhysics(),
-                        itemBuilder: (context,index){
-                          String status=customer[index]['status']=="True"?"Active":"Inactive";
+                        itemBuilder: (context, index) {
+                          String status = customer[index]['status'] == "True"
+                              ? "Active"
+                              : "Inactive";
                           return InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>EditCustomer(customer_id: customer[index]['customer_id'],name: customer[index]['name'],)));
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditCustomer(
+                                            customer_id: customer[index]
+                                                ['customer_id'],
+                                            name: customer[index]['name'],
+                                          )));
                             },
                             child: Padding(
-                              padding:  EdgeInsets.symmetric(vertical: 8.0),
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
+                                    borderRadius: BorderRadius.circular(10)),
                                 child: Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       SizedBox(
@@ -108,41 +125,46 @@ class _CustomersAccountState extends State<CustomersAccount> {
                                         children: [
                                           Expanded(
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               children: [
-                                                Text("Name : ${customer[index]['name']}",
+                                                Text(
+                                                  "Name : ${customer[index]['name']}",
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.w900,
-
-                                                  ),),
-                                                Text("Customer ID : ${customer[index]['customer_id']} ",
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "Customer ID : ${customer[index]['customer_id']} ",
                                                   style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.w900,
-
-                                                  ),),
+                                                  ),
+                                                ),
                                                 SizedBox(
                                                   height: 10,
                                                 ),
-                                                Text("EMAIL",
+                                                Text(
+                                                  "EMAIL",
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     color: Colors.grey,
                                                     fontWeight: FontWeight.w500,
-
-                                                  ),),
+                                                  ),
+                                                ),
                                                 SizedBox(
                                                   height: 8,
                                                 ),
-                                                Text("${customer[index]['email']}",
+                                                Text(
+                                                  "${customer[index]['email']}",
                                                   style: TextStyle(
                                                     fontSize: 19,
                                                     fontWeight: FontWeight.w500,
-
-                                                  ),),
-
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -150,7 +172,6 @@ class _CustomersAccountState extends State<CustomersAccount> {
                                             child: Image.asset(
                                               'images/Logo2.png',
                                               fit: BoxFit.cover,
-
                                             ),
                                           )
                                         ],
@@ -158,62 +179,72 @@ class _CustomersAccountState extends State<CustomersAccount> {
                                       SizedBox(
                                         height: 8,
                                       ),
-
-                                      Divider(thickness: 1,color: Colors.grey,),
+                                      Divider(
+                                        thickness: 1,
+                                        color: Colors.grey,
+                                      ),
                                       SizedBox(
                                         height: 8,
                                       ),
-                                      Text("MOBILE",
+                                      Text(
+                                        "MOBILE",
                                         style: TextStyle(
                                           fontSize: 20,
                                           color: Colors.grey,
                                           fontWeight: FontWeight.w500,
-
-                                        ),),
+                                        ),
+                                      ),
                                       SizedBox(
                                         height: 8,
                                       ),
                                       InkWell(
-                                        onTap: (){
-                                          customLaunchURL("tel:+91${customer[index]['mobile']}");
+                                        onTap: () {
+                                          customLaunchURL(
+                                              "tel:+91${customer[index]['mobile']}");
                                         },
-                                        child: Text("${customer[index]['mobile']}",
+                                        child: Text(
+                                          "${customer[index]['mobile']}",
                                           style: TextStyle(
                                             fontSize: 19,
-                                            color: HexColor("#4CD864"),
+                                            color: Color(0XFF4CD864),
                                             fontWeight: FontWeight.w500,
-
-                                          ),),
+                                          ),
+                                        ),
                                       ),
-
                                       SizedBox(
                                         height: 8,
                                       ),
-                                      Divider(thickness: 1,color: Colors.grey,),
+                                      Divider(
+                                        thickness: 1,
+                                        color: Colors.grey,
+                                      ),
                                       SizedBox(
                                         height: 8,
                                       ),
                                       Row(
                                         children: [
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Text("STATUS",
+                                              Text(
+                                                "STATUS",
                                                 style: TextStyle(
                                                   fontSize: 20,
                                                   color: Colors.grey,
                                                   fontWeight: FontWeight.w500,
-
-                                                ),),
+                                                ),
+                                              ),
                                               SizedBox(
                                                 height: 6,
                                               ),
-                                              Text(status,
+                                              Text(
+                                                status,
                                                 style: TextStyle(
                                                   fontSize: 19,
                                                   fontWeight: FontWeight.w500,
-
                                                 ),
                                               ),
                                             ],
@@ -222,35 +253,50 @@ class _CustomersAccountState extends State<CustomersAccount> {
                                           Align(
                                             alignment: Alignment.centerRight,
                                             child: Container(
-
                                               decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.all(Radius.circular(5))),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(5))),
                                               margin: EdgeInsets.only(
-                                                  left: 8, top: 8, right: 8, bottom: 10),
+                                                  left: 8,
+                                                  top: 8,
+                                                  right: 8,
+                                                  bottom: 10),
                                               child: MaterialButton(
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.all(
+                                                    borderRadius:
+                                                        BorderRadius.all(
                                                       Radius.circular(5),
                                                     ),
                                                   ),
                                                   onPressed: () {
-
-                                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AllBookings(id: customer[index]['customer_id'],keyName: "customer_id"),));
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              AllBookings(
+                                                                  id: customer[
+                                                                          index]
+                                                                      [
+                                                                      'customer_id'],
+                                                                  keyName:
+                                                                      "customer_id"),
+                                                        ));
                                                   },
-                                                  child:Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Text("View Bookings",
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      "View Bookings",
                                                       style: TextStyle(
                                                           color: Colors.white,
-
-                                                          fontSize: 20
-                                                      ),),
+                                                          fontSize: 20),
+                                                    ),
                                                   ),
-                                                  color: HexColor("#35B736")
-                                              ),
+                                                  color: Color(0XFF35B736)),
                                             ),
                                           ),
-
                                         ],
                                       ),
                                       SizedBox(
@@ -263,16 +309,14 @@ class _CustomersAccountState extends State<CustomersAccount> {
                             ),
                           );
                         });
-                  }
-                  else
-                  {
+                  } else {
                     return Container();
                   }
-
                 },
               ),
-              SizedBox(height: 20,),
-
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

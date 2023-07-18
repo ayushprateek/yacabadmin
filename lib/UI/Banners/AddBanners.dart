@@ -5,8 +5,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -186,7 +184,7 @@ class _AddBannersState extends State<AddBanners> {
         fillePath.add(fileName);
 
         Reference firebaseStorageRef =
-        FirebaseStorage.instance.ref().child(fileName);
+            FirebaseStorage.instance.ref().child(fileName);
 
         UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
         await uploadTask.then((p0) {
@@ -254,7 +252,7 @@ class _AddBannersState extends State<AddBanners> {
             //   )
             //       : IconButton(
             //     iconSize: MediaQuery.of(context).size.width,
-            //     icon: Icon(Icons.camera_alt,color: Theme.of(context).buttonColor,size: MediaQuery.of(context).size.width,
+            //     icon: Icon(Icons.camera_alt,color: buttonColor,size: MediaQuery.of(context).size.width,
             //     ),
             //     onPressed: pickImage,
             //   ),
@@ -267,7 +265,7 @@ class _AddBannersState extends State<AddBanners> {
                     icon: Icon(
                       Icons.add_a_photo,
                       size: 50,
-                      color: HexColor("#4CD864"),
+                      color: Color(0XFF4CD864),
                     ),
                     onPressed: loadAssets,
                   ),
@@ -342,6 +340,7 @@ class _AddBannersState extends State<AddBanners> {
       ),
     );
   }
+
   void addProductImages(context) {
     int banner_id;
     firRef
@@ -350,7 +349,8 @@ class _AddBannersState extends State<AddBanners> {
         .once()
         .then((DatabaseEvent datasnapshot) {
       try {
-        int newKey = int.parse(datasnapshot.snapshot.children.first.key.toString()) + 1;
+        int newKey =
+            int.parse(datasnapshot.snapshot.children.first.key.toString()) + 1;
         for (int i = 0; i < fillePath.length; i++, newKey++) {
           banner_id = newKey + 1;
           firRef.child("Banners").child(newKey.toString()).set({
@@ -418,87 +418,87 @@ class _AddBannersState extends State<AddBanners> {
     //     }
     // );
   }
-  // void addProductImages(context) {
-  //   int banner_id;
-  //
-  //   firRef
-  //       .child("Banners")
-  //       .limitToLast(1)
-  //       .once()
-  //       .then((DatabaseEvent datasnapshot) {
-  //     try {
-  //       Map<dynamic, dynamic> values =
-  //           datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
-  //       values.forEach((key, value) {
-  //         int newKey = int.parse(key.toString()) + 1;
-  //         for (int i = 0; i < fillePath.length; i++, newKey++) {
-  //           banner_id = newKey + 1;
-  //           firRef.child("Banners").child(newKey.toString()).set({
-  //             "banner_id": banner_id.toString(),
-  //             "image": fillePath[i],
-  //             "status": status == Status.enabled ? "True" : "False",
-  //             "title": "HOME BANNER",
-  //           });
-  //         }
-  //       });
-  //     } catch (e) {
-  //       print(e.toString());
-  //     }
-  //     Fluttertoast.showToast(
-  //         msg: "Images Uploaded",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         fontSize: 16.0);
-  //     Navigator.pop(context);
-  //     Timer(
-  //         Duration(
-  //           seconds: 1,
-  //         ), () {
-  //       Navigator.pop(context);
-  //     });
-  //   });
-  //
-  //   // search.limitToLast(1).once().then(
-  //   //         (DataSnapshot datasnapshot){
-  //   //       Map<dynamic,dynamic> values= datasnapshot.value;
-  //   //       values.forEach((key,value){
-  //   //         int newKey=int.parse(key.toString())+1;
-  //   //         for(int i=0;i<fillePath.length;i++,newKey++)
-  //   //         {
-  //   //           banner_id=newKey+1;
-  //   //           search.child(newKey.toString()).set({
-  //   //             "banner_id":banner_id.toString(),
-  //   //             "image":fillePath[i],
-  //   //             "status":status==Status.enabled?"True":"False",
-  //   //             "title":"HOME BANNER",
-  //   //
-  //   //           });
-  //   //
-  //   //         }
-  //   //       });
-  //   //       Fluttertoast.showToast(
-  //   //           msg:
-  //   //           "Images Uploaded",
-  //   //           toastLength: Toast
-  //   //               .LENGTH_SHORT,
-  //   //           gravity:
-  //   //           ToastGravity
-  //   //               .BOTTOM,
-  //   //           timeInSecForIosWeb:
-  //   //           1,
-  //   //           fontSize: 16.0);
-  //   //       Navigator.pop(context);
-  //   //       Timer(
-  //   //           Duration(seconds: 1,),
-  //   //               (){
-  //   //
-  //   //             Navigator.pop(context);
-  //   //           });
-  //   //
-  //   //     }
-  //   // );
-  // }
+// void addProductImages(context) {
+//   int banner_id;
+//
+//   firRef
+//       .child("Banners")
+//       .limitToLast(1)
+//       .once()
+//       .then((DatabaseEvent datasnapshot) {
+//     try {
+//       Map<dynamic, dynamic> values =
+//           datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
+//       values.forEach((key, value) {
+//         int newKey = int.parse(key.toString()) + 1;
+//         for (int i = 0; i < fillePath.length; i++, newKey++) {
+//           banner_id = newKey + 1;
+//           firRef.child("Banners").child(newKey.toString()).set({
+//             "banner_id": banner_id.toString(),
+//             "image": fillePath[i],
+//             "status": status == Status.enabled ? "True" : "False",
+//             "title": "HOME BANNER",
+//           });
+//         }
+//       });
+//     } catch (e) {
+//       print(e.toString());
+//     }
+//     Fluttertoast.showToast(
+//         msg: "Images Uploaded",
+//         toastLength: Toast.LENGTH_SHORT,
+//         gravity: ToastGravity.BOTTOM,
+//         timeInSecForIosWeb: 1,
+//         fontSize: 16.0);
+//     Navigator.pop(context);
+//     Timer(
+//         Duration(
+//           seconds: 1,
+//         ), () {
+//       Navigator.pop(context);
+//     });
+//   });
+//
+//   // search.limitToLast(1).once().then(
+//   //         (DataSnapshot datasnapshot){
+//   //       Map<dynamic,dynamic> values= datasnapshot.value;
+//   //       values.forEach((key,value){
+//   //         int newKey=int.parse(key.toString())+1;
+//   //         for(int i=0;i<fillePath.length;i++,newKey++)
+//   //         {
+//   //           banner_id=newKey+1;
+//   //           search.child(newKey.toString()).set({
+//   //             "banner_id":banner_id.toString(),
+//   //             "image":fillePath[i],
+//   //             "status":status==Status.enabled?"True":"False",
+//   //             "title":"HOME BANNER",
+//   //
+//   //           });
+//   //
+//   //         }
+//   //       });
+//   //       Fluttertoast.showToast(
+//   //           msg:
+//   //           "Images Uploaded",
+//   //           toastLength: Toast
+//   //               .LENGTH_SHORT,
+//   //           gravity:
+//   //           ToastGravity
+//   //               .BOTTOM,
+//   //           timeInSecForIosWeb:
+//   //           1,
+//   //           fontSize: 16.0);
+//   //       Navigator.pop(context);
+//   //       Timer(
+//   //           Duration(seconds: 1,),
+//   //               (){
+//   //
+//   //             Navigator.pop(context);
+//   //           });
+//   //
+//   //     }
+//   // );
+// }
 // void addProduct(context)
 // {
 //   int product_id;

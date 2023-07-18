@@ -186,9 +186,7 @@ class _AllDriversLocationState extends State<AllDriversLocation> {
         markers[l[i]] = m[i];
       }
 
-      setState(() {
-
-      });
+      setState(() {});
     });
     print("Hello");
 

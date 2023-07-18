@@ -1,8 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
-
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +46,8 @@ class _AddCategoryState extends State<AddCategory> {
       // print(_imageFile.path);
       print(fileName);
       fileName = 'Drivers/$fileName';
-      Reference firebaseStorageRef =FirebaseStorage.instance.ref().child(fileName ?? "");
+      Reference firebaseStorageRef =
+          FirebaseStorage.instance.ref().child(fileName ?? "");
 
       UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
       await uploadTask.then((p0) {
@@ -120,7 +118,7 @@ class _AddCategoryState extends State<AddCategory> {
                         child: IconButton(
                           icon: Icon(
                             Icons.camera_alt,
-                            color: Theme.of(context).buttonColor,
+                            color: buttonColor,
                           ),
                           onPressed: () {
                             showAnimatedDialog(
@@ -175,7 +173,7 @@ class _AddCategoryState extends State<AddCategory> {
                             //         style: TextStyle(
                             //             color: Colors.black, fontSize: 20),
                             //       ),
-                            //       color: Theme.of(context).buttonColor,
+                            //       color: buttonColor,
                             //     ),
                             //   ),
                             //   secondButton: Container(
@@ -197,7 +195,7 @@ class _AddCategoryState extends State<AddCategory> {
                             //         style: TextStyle(
                             //             color: Colors.black, fontSize: 20),
                             //       ),
-                            //       color: Theme.of(context).buttonColor,
+                            //       color: buttonColor,
                             //     ),
                             //   ),
                             // );
@@ -357,7 +355,7 @@ class _AddCategoryState extends State<AddCategory> {
         },
         child: Icon(
           Icons.save,
-          color: Theme.of(context).buttonColor,
+          color: buttonColor,
         ),
       ),
     );

@@ -183,7 +183,7 @@ class _EditRatesState extends State<EditRates> {
                                     child: IconButton(
                                       icon: Icon(
                                         Icons.camera_alt,
-                                        color: Theme.of(context).buttonColor,
+                                        color: buttonColor,
                                       ),
                                       onPressed: () {
                                         showAnimatedDialog(
@@ -238,7 +238,7 @@ class _EditRatesState extends State<EditRates> {
                                         //             color: Colors.black,
                                         //             fontSize: 20
                                         //         ),),
-                                        //       color: Theme.of(context).buttonColor,
+                                        //       color: buttonColor,
                                         //     ),
                                         //   ),
                                         //   secondButton: Container(
@@ -266,7 +266,7 @@ class _EditRatesState extends State<EditRates> {
                                         //
                                         //             fontSize: 20
                                         //         ),),
-                                        //       color: Theme.of(context).buttonColor,
+                                        //       color: buttonColor,
                                         //     ),
                                         //   ),);
                                       },
@@ -310,8 +310,12 @@ class _EditRatesState extends State<EditRates> {
                         ? driver[0]['to_distance'].toString()
                         : "";
                     name.text = driver[0]['name'] ?? "";
-                    rate.text = driver[0]['rate']==null?"":driver[0]['rate'].toString() ;
-                    seats.text = driver[0]['seats']==null?"":driver[0]['seats'].toString() ;
+                    rate.text = driver[0]['rate'] == null
+                        ? ""
+                        : driver[0]['rate'].toString();
+                    seats.text = driver[0]['seats'] == null
+                        ? ""
+                        : driver[0]['seats'].toString();
                     status = driver[0]['status'] == true
                         ? Status.enabled
                         : Status.disabled;
@@ -716,7 +720,7 @@ class _EditRatesState extends State<EditRates> {
                           //             color: Colors.black,
                           //             fontSize: 20
                           //         ),),
-                          //       color: Theme.of(context).buttonColor,
+                          //       color: buttonColor,
                           //     ),
                           //   ),
                           //   secondButton: Container(
@@ -786,7 +790,7 @@ class _EditRatesState extends State<EditRates> {
         },
         child: Icon(
           Icons.save,
-          color: Theme.of(context).buttonColor,
+          color: buttonColor,
         ),
       ),
     );
@@ -838,7 +842,6 @@ class _EditRatesState extends State<EditRates> {
           //       "image":fileName,
           //     });
           // });
-
         } catch (e) {
           print(e.toString());
         }

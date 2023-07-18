@@ -6,40 +6,52 @@ import 'package:yacabadmin/Components/GetImageURL.dart';
 import 'package:yacabadmin/UI/Categories/AddCategory.dart';
 import 'package:yacabadmin/UI/Categories/EditCategory.dart';
 import 'package:yacabadmin/UI/Categories/SubCategories.dart';
+
 class Categories extends StatefulWidget {
   @override
   _CategoriesState createState() => _CategoriesState();
 }
+
 class _CategoriesState extends State<Categories> {
-  List categories=[];
+  List categories = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, color: Colors.black,size: 30,),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 30,
+          ),
         ),
-        title: Text("Categories",
+        title: Text(
+          "Categories",
           style: TextStyle(
             fontWeight: FontWeight.w900,
-
-          ),),
-
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               StreamBuilder(
-                stream: firRef.child("Categories").orderByChild("parent_id").equalTo("0").onValue,
-                builder: (context,snapshot){
-                  if(!snapshot.hasData)
-                    return Container();
+                stream: firRef
+                    .child("Categories")
+                    .orderByChild("parent_id")
+                    .equalTo("0")
+                    .onValue,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return Container();
                   categories.clear();
                   DatabaseEvent? databaseEvent = snapshot.data as DatabaseEvent;
                   databaseEvent.snapshot.children.forEach((event) {
@@ -62,50 +74,48 @@ class _CategoriesState extends State<Categories> {
                   //         categories.add(value);
                   //     });
                   // }
-                  if(categories.length!=0)
+                  if (categories.length != 0)
                     return ListView.builder(
                         itemCount: categories.length,
                         shrinkWrap: true,
                         physics: ScrollPhysics(),
-                        itemBuilder: (context,index){
-                          String status=categories[index]['status']=="True"?"Active":"Inactive";
-                          Widget image=FutureBuilder(
+                        itemBuilder: (context, index) {
+                          String status = categories[index]['status'] == "True"
+                              ? "Active"
+                              : "Inactive";
+                          Widget image = FutureBuilder(
                               future: imageurl(categories[index]['image']),
-                              builder: (context,AsyncSnapshot<Url> snap){
-                                if(!snapshot.hasData)
+                              builder: (context, AsyncSnapshot<Url> snap) {
+                                if (!snapshot.hasData)
                                   return Image.asset(
                                     'images/Logo2.png',
                                     fit: BoxFit.cover,
-                                    height: MediaQuery.of(context).size.height/3,
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
                                     width: MediaQuery.of(context).size.width,
-
                                   );
-                                try{
+                                try {
                                   return Image.network(
                                     snap.data?.image,
                                     fit: BoxFit.cover,
-                                    height: MediaQuery.of(context).size.height/3,
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
                                     width: MediaQuery.of(context).size.width,
-
                                   );
-                                }
-                                catch(e)
-                                {
+                                } catch (e) {
                                   return Image.asset(
                                     'images/Logo2.png',
                                     fit: BoxFit.cover,
-                                    height: MediaQuery.of(context).size.height/3,
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
                                     width: MediaQuery.of(context).size.width,
-
                                   );
                                 }
-
-
                               });
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                             child: InkWell(
-                              onTap: (){
+                              onTap: () {
                                 showAnimatedDialog(
                                   context: context,
                                   barrierDismissible: true,
@@ -116,12 +126,32 @@ class _CategoriesState extends State<Categories> {
                                       negativeText: 'Edit',
                                       onNegativeClick: () {
                                         Navigator.pop(context);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>EditCategory(category_id: categories[index]['category_id'],name: categories[index]['name'],)));
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditCategory(
+                                                      category_id:
+                                                          categories[index]
+                                                              ['category_id'],
+                                                      name: categories[index]
+                                                          ['name'],
+                                                    )));
                                       },
                                       positiveText: "View Subcategories",
                                       onPositiveClick: () {
                                         Navigator.pop(context);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SubCategories(category_id: categories[index]['category_id'],name: categories[index]['name'],)));
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SubCategories(
+                                                      category_id:
+                                                          categories[index]
+                                                              ['category_id'],
+                                                      name: categories[index]
+                                                          ['name'],
+                                                    )));
                                       },
                                     );
                                   },
@@ -159,7 +189,7 @@ class _CategoriesState extends State<Categories> {
                                 //             color: Colors.black,
                                 //             fontSize: 20
                                 //         ),),
-                                //       color: Theme.of(context).buttonColor,
+                                //       color: buttonColor,
                                 //     ),
                                 //   ),
                                 //   secondButton: Container(
@@ -187,73 +217,67 @@ class _CategoriesState extends State<Categories> {
                                 //
                                 //             fontSize: 20
                                 //         ),),
-                                //       color: Theme.of(context).buttonColor,
+                                //       color: buttonColor,
                                 //     ),
                                 //   ),);
-
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: MediaQuery.of(context).size.height/5,
+                                    height:
+                                        MediaQuery.of(context).size.height / 5,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10)
-                                    ),
-
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: Row(
                                       children: [
                                         Expanded(
-                                          flex:4,
-                                          child:image,
+                                          flex: 4,
+                                          child: image,
                                         ),
                                         Expanded(
-                                          flex:5,
+                                          flex: 5,
                                           child: Padding(
-                                            padding: const EdgeInsets.only(left: 8.0),
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                               children: [
                                                 Spacer(),
-
                                                 Flexible(
-                                                  flex:2,
+                                                  flex: 2,
                                                   child: Text(
                                                     categories[index]['name'],
-
                                                     style: TextStyle(
-
-                                                        fontWeight: FontWeight.w900,
-                                                        fontSize: 23
-                                                    ),
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize: 23),
                                                   ),
                                                 ),
                                                 Spacer(),
-
                                                 Flexible(
                                                   child: Text(
                                                     status,
-
                                                     style: TextStyle(
                                                       fontSize: 18,
                                                       color: Colors.black,
-
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(height: 8,),
-
-
-
+                                                SizedBox(
+                                                  height: 8,
+                                                ),
                                                 Spacer(),
                                               ],
                                             ),
                                           ),
                                         ),
-
                                       ],
                                     ),
                                   ),
@@ -273,10 +297,18 @@ class _CategoriesState extends State<Categories> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         tooltip: "Add a category",
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddCategory(parent_id: "0",)));
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddCategory(
+                        parent_id: "0",
+                      )));
         },
-        child: Icon(Icons.add,color: Theme.of(context).buttonColor,),
+        child: Icon(
+          Icons.add,
+          color: buttonColor,
+        ),
       ),
     );
   }

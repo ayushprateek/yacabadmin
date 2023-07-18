@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:yacabadmin/Components/Customs.dart';
-import 'package:yacabadmin/Components/GetImageURL.dart';
 import 'package:yacabadmin/Components/isNumeric.dart';
 
 enum Status { enabled, disabled }
@@ -58,7 +58,7 @@ class _AddRatesState extends State<AddRates> {
       print(fileName);
       fileName = 'Drivers/$fileName';
       Reference firebaseStorageRef =
-      FirebaseStorage.instance.ref().child(fileName ?? "");
+          FirebaseStorage.instance.ref().child(fileName ?? "");
 
       UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile!);
       await uploadTask.then((p0) {
@@ -108,14 +108,13 @@ class _AddRatesState extends State<AddRates> {
               SizedBox(
                 height: 50,
               ),
-
               Stack(
                 children: [
                   _imageFile == null
                       ? Icon(
-                    Icons.camera_alt,
-                    size: MediaQuery.of(context).size.width / 2,
-                  )
+                          Icons.camera_alt,
+                          size: MediaQuery.of(context).size.width / 2,
+                        )
                       : Image.file(_imageFile!),
                   Positioned(
                       right: 10,
@@ -130,7 +129,7 @@ class _AddRatesState extends State<AddRates> {
                         child: IconButton(
                           icon: Icon(
                             Icons.camera_alt,
-                            color: Theme.of(context).buttonColor,
+                            color: buttonColor,
                           ),
                           onPressed: () {
                             showAnimatedDialog(
@@ -185,7 +184,7 @@ class _AddRatesState extends State<AddRates> {
                             //         style: TextStyle(
                             //             color: Colors.black, fontSize: 20),
                             //       ),
-                            //       color: Theme.of(context).buttonColor,
+                            //       color: buttonColor,
                             //     ),
                             //   ),
                             //   secondButton: Container(
@@ -207,7 +206,7 @@ class _AddRatesState extends State<AddRates> {
                             //         style: TextStyle(
                             //             color: Colors.black, fontSize: 20),
                             //       ),
-                            //       color: Theme.of(context).buttonColor,
+                            //       color: buttonColor,
                             //     ),
                             //   ),
                             // );
@@ -252,14 +251,11 @@ class _AddRatesState extends State<AddRates> {
                             labelText: "Name",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
-                              borderSide:
-                              new BorderSide(color: Colors.grey),
+                              borderRadius: new BorderRadius.circular(0.0),
+                              borderSide: new BorderSide(color: Colors.grey),
                             ),
                             border: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
+                              borderRadius: new BorderRadius.circular(0.0),
                               borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
@@ -282,14 +278,11 @@ class _AddRatesState extends State<AddRates> {
                             labelText: "From Distance",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
-                              borderSide:
-                              new BorderSide(color: Colors.grey),
+                              borderRadius: new BorderRadius.circular(0.0),
+                              borderSide: new BorderSide(color: Colors.grey),
                             ),
                             border: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
+                              borderRadius: new BorderRadius.circular(0.0),
                               borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
@@ -313,14 +306,11 @@ class _AddRatesState extends State<AddRates> {
                             labelText: "To Distance",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
-                              borderSide:
-                              new BorderSide(color: Colors.grey),
+                              borderRadius: new BorderRadius.circular(0.0),
+                              borderSide: new BorderSide(color: Colors.grey),
                             ),
                             border: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
+                              borderRadius: new BorderRadius.circular(0.0),
                               borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
@@ -344,14 +334,11 @@ class _AddRatesState extends State<AddRates> {
                             labelText: "From Time",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
-                              borderSide:
-                              new BorderSide(color: Colors.grey),
+                              borderRadius: new BorderRadius.circular(0.0),
+                              borderSide: new BorderSide(color: Colors.grey),
                             ),
                             border: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
+                              borderRadius: new BorderRadius.circular(0.0),
                               borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
@@ -375,14 +362,11 @@ class _AddRatesState extends State<AddRates> {
                             labelText: "To Time",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
-                              borderSide:
-                              new BorderSide(color: Colors.grey),
+                              borderRadius: new BorderRadius.circular(0.0),
+                              borderSide: new BorderSide(color: Colors.grey),
                             ),
                             border: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
+                              borderRadius: new BorderRadius.circular(0.0),
                               borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
@@ -406,14 +390,11 @@ class _AddRatesState extends State<AddRates> {
                             labelText: "Rate",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
-                              borderSide:
-                              new BorderSide(color: Colors.grey),
+                              borderRadius: new BorderRadius.circular(0.0),
+                              borderSide: new BorderSide(color: Colors.grey),
                             ),
                             border: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
+                              borderRadius: new BorderRadius.circular(0.0),
                               borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
@@ -437,14 +418,11 @@ class _AddRatesState extends State<AddRates> {
                             labelText: "Seats",
                             labelStyle: TextStyle(color: Colors.black),
                             focusedBorder: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
-                              borderSide:
-                              new BorderSide(color: Colors.grey),
+                              borderRadius: new BorderRadius.circular(0.0),
+                              borderSide: new BorderSide(color: Colors.grey),
                             ),
                             border: new OutlineInputBorder(
-                              borderRadius:
-                              new BorderRadius.circular(0.0),
+                              borderRadius: new BorderRadius.circular(0.0),
                               borderSide: new BorderSide(),
                             ),
                             //fillColor: Colors.green
@@ -541,7 +519,7 @@ class _AddRatesState extends State<AddRates> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Padding(
                     padding:
-                    const EdgeInsets.only(left: 8.0, top: 8, bottom: 8),
+                        const EdgeInsets.only(left: 8.0, top: 8, bottom: 8),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 1.3,
                       height: MediaQuery.of(context).size.height / 20,
@@ -563,7 +541,7 @@ class _AddRatesState extends State<AddRates> {
                               return ClassicGeneralDialogWidget(
                                 titleText: 'Delete',
                                 contentText:
-                                "Are you sure you want to delete this category?",
+                                    "Are you sure you want to delete this category?",
                                 negativeText: 'No',
                                 onNegativeClick: () {
                                   Navigator.pop(context);
@@ -609,7 +587,7 @@ class _AddRatesState extends State<AddRates> {
                           //             color: Colors.black,
                           //             fontSize: 20
                           //         ),),
-                          //       color: Theme.of(context).buttonColor,
+                          //       color: buttonColor,
                           //     ),
                           //   ),
                           //   secondButton: Container(
@@ -679,7 +657,7 @@ class _AddRatesState extends State<AddRates> {
         },
         child: Icon(
           Icons.save,
-          color: Theme.of(context).buttonColor,
+          color: buttonColor,
         ),
       ),
     );
@@ -698,21 +676,19 @@ class _AddRatesState extends State<AddRates> {
     } else if (!isNumeric(toTime.text)) {
       Fluttertoast.showToast(msg: "To Time must be numeric");
       Navigator.pop(context);
-    }
-    else {
+    } else {
       firRef
-          .child("Categories").limitToLast(1)
+          .child("Categories")
+          .limitToLast(1)
           .once()
           .then((DatabaseEvent datasnapshot) {
         try {
           int newKey =
-              int.parse(datasnapshot.snapshot.children.first.key.toString()) + 1;
+              int.parse(datasnapshot.snapshot.children.first.key.toString()) +
+                  1;
           int category_id = newKey + 1;
 
-          firRef
-              .child("Categories")
-              .child(newKey.toString())
-              .set({
+          firRef.child("Categories").child(newKey.toString()).set({
             "category_id": category_id.toString(),
             "from_distance": double.tryParse(fromDistance.text) ?? null,
             "to_distance": double.tryParse(toDistance.text) ?? null,
@@ -720,7 +696,7 @@ class _AddRatesState extends State<AddRates> {
             "to_time": double.tryParse(toTime.text) ?? null,
             "status": status == Status.enabled ? "True" : "False",
             "fixed": fixed == Fixed.fixedPrice,
-            "parent_id":widget.parent_id,
+            "parent_id": widget.parent_id,
             "name": name.text,
             "rate": rate.text,
             "seats": seats.text,
@@ -745,11 +721,9 @@ class _AddRatesState extends State<AddRates> {
           //       "image":fileName,
           //     });
           // });
-
         } catch (e) {
           print(e.toString());
         }
-
       });
     }
 
@@ -790,7 +764,7 @@ class _AddRatesState extends State<AddRates> {
         .then((DatabaseEvent datasnapshot) {
       try {
         Map<dynamic, dynamic> values =
-        datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
+            datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
         values.forEach((key, value) {
           if (value != null)
             firRef.child("Categories").child(key.toString()).remove();

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-Future showRejectionDialog(
-    {
-      required BuildContext context,
-      required Function onRejection,
-      required Function onCancel,
-      required TextEditingController controller,
-    })
-{
+
+Future showRejectionDialog({
+  required BuildContext context,
+  required Function onRejection,
+  required Function onCancel,
+  required TextEditingController controller,
+}) {
   return showDialog(
     context: context,
     barrierDismissible: true,
@@ -14,13 +13,10 @@ Future showRejectionDialog(
       return AlertDialog(
         title: Text("Reason of Rejection"),
         content: Container(
-
-          width: MediaQuery.of(context).size.width/1.5,
+          width: MediaQuery.of(context).size.width / 1.5,
           child: TextFormField(
             controller: controller,
-
             decoration: new InputDecoration(
-
               filled: true,
 
               fillColor: Colors.white,
@@ -31,32 +27,22 @@ Future showRejectionDialog(
               // fillColor: Colors.red,
               focusedBorder: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(0.0),
-                borderSide: new BorderSide(
-                    color: Colors.grey
-                ),
-              ) ,
-              //labelStyle: TextStyle(color: HexColor("#27ab87")),
+                borderSide: new BorderSide(color: Colors.grey),
+              ),
+              //labelStyle: TextStyle(color: Color(0XFF27ab87")),
 
               border: new OutlineInputBorder(
-
                 borderRadius: new BorderRadius.circular(0.0),
-                borderSide: new BorderSide(
-
-
-                ),
+                borderSide: new BorderSide(),
               ),
               //fillColor: Colors.green
             ),
-
-            style: new TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w900
-            ),
+            style: new TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
           ),
         ),
         actions: [
-          TextButton(onPressed:()=> onCancel, child: Text("Cancel")),
-          TextButton(onPressed:()=> onRejection, child: Text("Reject")),
+          TextButton(onPressed: () => onCancel, child: Text("Cancel")),
+          TextButton(onPressed: () => onRejection, child: Text("Reject")),
         ],
       );
     },
@@ -109,4 +95,3 @@ Future showRejectionDialog(
 //     },
 //   );
 // }
-

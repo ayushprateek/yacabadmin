@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: "username",
                           prefixIcon: Icon(
                             Icons.person,
-                            color: Theme.of(context).buttonColor,
+                            color: buttonColor,
                           ),
                           fillColor: Colors.white,
                           hoverColor: Colors.red,
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: new BorderRadius.circular(0.0),
                             borderSide: new BorderSide(color: Colors.grey),
                           ),
-                          //labelStyle: TextStyle(color: HexColor("#27ab87")),
+                          //labelStyle: TextStyle(color: Color(0XFF27ab87")),
 
                           border: new OutlineInputBorder(
                             borderRadius: new BorderRadius.circular(0.0),
@@ -115,8 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: new InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           filled: true,
-                          prefixIcon: Icon(Icons.password,
-                              color: Theme.of(context).buttonColor),
+                          prefixIcon: Icon(Icons.password, color: buttonColor),
                           fillColor: Colors.white,
                           hoverColor: Colors.red,
                           suffixIcon: IconButton(
@@ -126,10 +125,9 @@ class _LoginPageState extends State<LoginPage> {
                               });
                             },
                             icon: obscureText
-                                ? Icon(Icons.visibility,
-                                    color: Theme.of(context).buttonColor)
+                                ? Icon(Icons.visibility, color: buttonColor)
                                 : Icon(Icons.visibility_off,
-                                    color: Theme.of(context).buttonColor),
+                                    color: buttonColor),
                           ),
                           labelText: "password",
 
@@ -138,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: new BorderRadius.circular(0.0),
                             borderSide: new BorderSide(color: Colors.grey),
                           ),
-                          //labelStyle: TextStyle(color: HexColor("#27ab87")),
+                          //labelStyle: TextStyle(color: Color(0XFF27ab87")),
 
                           border: new OutlineInputBorder(
                             borderRadius: new BorderRadius.circular(0.0),
@@ -182,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                     fontWeight: FontWeight.w800,
                                     fontSize: 20),
                               ),
-                              color: Theme.of(context).buttonColor,
+                              color: buttonColor,
                             ),
                           )),
                     ),
@@ -224,16 +222,17 @@ class _LoginPageState extends State<LoginPage> {
     firRef.child("Admin").once().then((DatabaseEvent datasnapshot) {
       bool loginSuccessfull = false;
       try {
-        Map<dynamic, dynamic> value = datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
+        Map<dynamic, dynamic> value =
+            datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
         print(value);
         if (value != null &&
-            value['username'].toString().toLowerCase() == username.text.toLowerCase() &&
+            value['username'].toString().toLowerCase() ==
+                username.text.toLowerCase() &&
             value['password'].toString() == password.text) {
           loginSuccessfull = true;
           Navigator.pushReplacement(context,
               new MaterialPageRoute(builder: (context) => new Dashboard()));
         }
-
       } catch (e) {
         print(e.toString());
       }
