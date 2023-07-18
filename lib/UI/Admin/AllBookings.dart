@@ -75,7 +75,9 @@ class _AllBookingsState extends State<AllBookings> {
                   bookings.clear();
                   DatabaseEvent? databaseEvent = snapshot.data as DatabaseEvent;
                   databaseEvent.snapshot.children.forEach((event) {
-                    bookings.add(event.value as Map);
+                    Map map=event.value as Map;
+                    if(map['booking_id']!=null)
+                    bookings.add(map);
                   });
 
                   // try
