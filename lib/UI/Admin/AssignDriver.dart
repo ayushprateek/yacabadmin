@@ -569,18 +569,19 @@ class _AssignDriverState extends State<AssignDriver> {
         .orderByChild("booking_id")
         .equalTo(widget.booking_id)
         .once()
-        .then((DatabaseEvent datasnapshot) {
+        .then((DatabaseEvent dataSnapshot) {
       try {
-        Map<dynamic, dynamic> values =
-            datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
-        values.forEach((key, value) {
-          if (value != null)
-            firRef.child("Bookings").child(key.toString()).update({
-              "driver_name": driver_name,
-              "driver_id": driver_id,
-              "status": "Assigned"
-            });
-        });
+        if (dataSnapshot.snapshot.children.first.key != null &&
+            dataSnapshot.snapshot.children.first.key != '') {
+          firRef
+              .child("Bookings")
+              .child(dataSnapshot.snapshot.children.first.key ?? '')
+              .update({
+            "driver_name": driver_name,
+            "driver_id": driver_id,
+            "status": "Assigned"
+          });
+        }
       } catch (e) {
         print(e.toString());
       }

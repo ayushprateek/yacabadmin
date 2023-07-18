@@ -2,6 +2,8 @@ package com.yacab.yacabadmin;
 import android.app.NotificationManager;
 import androidx.annotation.NonNull;
 import com.yacab.yacabadmin.*;
+import android.app.Notification;
+import android.app.NotificationChannel;
 
 import android.content.Intent;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -13,6 +15,7 @@ import android.content.Context;
 //import android.location.Location;
 //import android.location.LocationListener;
 //import android.location.LocationManager;
+import android.graphics.Color;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import android.widget.Toast;
@@ -27,6 +30,8 @@ import java.util.*;
 //import com.google.android.gms.location.LocationResult;
 //import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.media.MediaPlayer;
@@ -34,104 +39,104 @@ import android.media.MediaPlayer;
 import java.util.HashMap;
 import com.google.firebase.database.DataSnapshot;
 
-class MyThread extends Thread {
-    static Thread mt;
-    static MyService o;
-
-    MediaPlayer player;
-    DatabaseReference databaseReference, bookings;
-    public void run()
-    {
-        try
-        {
-            for(int i=0; ;i++)
-            {
-                System.out.println("Sleeping Thread");
-                bookings = FirebaseDatabase.getInstance().getReference("Bookings");
-
-
-                bookings.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-
-                        if (task.isSuccessful()){
-
-                            if (task.getResult().exists()){
-                                System.out.println("Database exists");
-                                DataSnapshot dataSnapshot = task.getResult();
-
-                                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                                    String key = ds.getKey();
-                                    bookings.child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                            if (task.isSuccessful()){
-                                                if (task.getResult().exists()){
-                                                    DataSnapshot dataSnapshot = task.getResult();
-                                                    String restaurant_id = String.valueOf(dataSnapshot.child("restaurant_id").getValue());
-                                                    String status = String.valueOf(dataSnapshot.child("status").getValue());
-                                                    String driver_id = String.valueOf(dataSnapshot.child("driver_id").getValue());
-                                                    System.out.println("Status = "+status);
-                                                    System.out.println("Driver ID = "+driver_id);
-                                                    //if(restaurant_id.equals(MainActivity.restaurant_id) && status.equals("Pending"))
-                                                    if(status.equals("Pending") && driver_id.equals("null"))
-                                                    {
-                                                        System.out.println("Playing = ");
-
-                                                        play();
-                                                    }
-
-
-
-                                                }
-
-
-                                            }
-
-                                        }
-                                    });
-                                }
-
-
-
-                            }
-
-
-                        }
-
-                    }
-                });
-                Thread.sleep(2000);
-            }
-        }
-        catch(Exception e)
-        {
-
-        }
-    }
-    public void play() {
-        System.out.println("Inside play");
-        if (player == null) {
-            System.out.println("player is null");
-            player = MediaPlayer.create(o, R.raw.notification);
-            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    stopPlayer();
-                }
-            });
-        }
-
-        player.start();
-    }
-    private void stopPlayer() {
-        if (player != null) {
-            player.release();
-            player = null;
-//            Toast.makeText(this, "MediaPlayer released", Toast.LENGTH_SHORT).show();
-        }
-    }
-}
+//class MyThread extends Thread {
+//    static Thread mt;
+//    static MyService o;
+//
+//    MediaPlayer player;
+//    DatabaseReference databaseReference, bookings;
+//    public void run()
+//    {
+//        try
+//        {
+//            for(int i=0; ;i++)
+//            {
+//                System.out.println("Sleeping Thread");
+//                bookings = FirebaseDatabase.getInstance().getReference("Bookings");
+//
+//
+//                bookings.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//
+//                        if (task.isSuccessful()){
+//
+//                            if (task.getResult().exists()){
+//                                System.out.println("Database exists");
+//                                DataSnapshot dataSnapshot = task.getResult();
+//
+//                                for (DataSnapshot ds: dataSnapshot.getChildren()){
+//                                    String key = ds.getKey();
+//                                    bookings.child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                                            if (task.isSuccessful()){
+//                                                if (task.getResult().exists()){
+//                                                    DataSnapshot dataSnapshot = task.getResult();
+//                                                    String restaurant_id = String.valueOf(dataSnapshot.child("restaurant_id").getValue());
+//                                                    String status = String.valueOf(dataSnapshot.child("status").getValue());
+//                                                    String driver_id = String.valueOf(dataSnapshot.child("driver_id").getValue());
+//                                                    System.out.println("Status = "+status);
+//                                                    System.out.println("Driver ID = "+driver_id);
+//                                                    //if(restaurant_id.equals(MainActivity.restaurant_id) && status.equals("Pending"))
+//                                                    if(status.equals("Pending") && driver_id.equals("null"))
+//                                                    {
+//                                                        System.out.println("Playing = ");
+//
+//                                                        play();
+//                                                    }
+//
+//
+//
+//                                                }
+//
+//
+//                                            }
+//
+//                                        }
+//                                    });
+//                                }
+//
+//
+//
+//                            }
+//
+//
+//                        }
+//
+//                    }
+//                });
+//                Thread.sleep(2000);
+//            }
+//        }
+//        catch(Exception e)
+//        {
+//
+//        }
+//    }
+//    public void play() {
+//        System.out.println("Inside play");
+//        if (player == null) {
+//            System.out.println("player is null");
+//            player = MediaPlayer.create(o, R.raw.notification);
+//            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                @Override
+//                public void onCompletion(MediaPlayer mp) {
+//                    stopPlayer();
+//                }
+//            });
+//        }
+//
+//        player.start();
+//    }
+//    private void stopPlayer() {
+//        if (player != null) {
+//            player.release();
+//            player = null;
+////            Toast.makeText(this, "MediaPlayer released", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//}
 public class MyService extends Service {
     MediaPlayer player;
 //    private LocationManager mLocationManager;
@@ -139,28 +144,30 @@ public class MyService extends Service {
 //    FusedLocationProviderClient fusedLocationProviderClient;
     private static double currentLat =0;
     private static double currentLon =0;
-    DatabaseReference databaseReference,order_requests;
+    DatabaseReference databaseReference,bookings;
+    MyService o;
     private static int  count =0;
-     public void play() {
+    public void play() {
         System.out.println("Inside play");
         if (player == null) {
             System.out.println("player is null");
-            player = MediaPlayer.create(this, R.raw.notification);
+            player = MediaPlayer.create(o, R.raw.notification);
+            System.out.println("Playing Notification");
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    stopPlayer();
+                    play();
                 }
             });
         }
 
         player.start();
     }
-     private void stopPlayer() {
+
+    private void stopPlayer() {
         if (player != null) {
             player.release();
             player = null;
-//            Toast.makeText(this, "MediaPlayer released", Toast.LENGTH_SHORT).show();
         }
     }
 //    LocationCallback locationCallback = new LocationCallback() {
@@ -302,28 +309,73 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        try
-        {
-//            NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"Yacab").setOngoing(true)
-//                    .setContentText("to provide you the latest leads")
-//                    .setContentTitle("Ya Cab Admin is running in background")
-//                    .setSmallIcon(R.drawable.launch_background);
-//
-//            startForeground(101,builder.build());
-            MyThread.mt=Thread.currentThread();
-            MyThread.o=this;
-            MyThread t=new MyThread();
-            t.start();
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                String NOTIFICATION_CHANNEL_ID = "com.yacab.yacabadmin";
+                String channelName = "Ya Cab admin";
+                NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
+                chan.setLightColor(Color.BLUE);
+                chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+                NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                assert manager != null;
+                manager.createNotificationChannel(chan);
+
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+                Notification notification = notificationBuilder.setOngoing(true)
+                        .setContentTitle("Ya Cab Admin is running in background")
+                        .setPriority(NotificationManager.IMPORTANCE_MIN)
+                        .setCategory(Notification.CATEGORY_SERVICE)
+                        .build();
+                startForeground(2, notification);
+            }
+            o = this;
+            bookings = FirebaseDatabase.getInstance().getReference("Bookings");
+            bookings.addChildEventListener(new ChildEventListener() {
+                public void onChildAdded(DataSnapshot dataSnapshot, String previousKey) {
+                    System.out.println("Add " + dataSnapshot.getKey() + " to UI after " + previousKey);
+                    String status = String.valueOf(dataSnapshot.child("status").getValue());
+                    String driver_id = String.valueOf(dataSnapshot.child("driver_id").getValue());
+                    System.out.println("Status = " + status);
+                    if (status.equals("Pending") /*|| driver_id.equals("null")*/) {
+                        System.out.println("Playing = ");
+                        play();
+                    } else {
+                        stopPlayer();
+                    }
+                }
+
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    System.out.println("Updated " + dataSnapshot.getKey() + " to UI after " + s);
+                    String status = String.valueOf(dataSnapshot.child("status").getValue());
+                    String driver_id = String.valueOf(dataSnapshot.child("driver_id").getValue());
+                    System.out.println("Status = " + status);
+
+                    if (status.equals("Pending") /*|| driver_id.equals("null")*/) {
+                        System.out.println("Playing = ");
+                        play();
+                    } else {
+                        stopPlayer();
+                    }
+                }
+
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
+
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    System.out.println("Moved " + dataSnapshot.getKey() + " to UI after " + s);
+                }
+
+                public void onCancelled(DatabaseError firebaseError) {
+                }
+            });
 
 
+        } catch (Exception e) {
+            System.out.println("Stack Trace");
+            e.printStackTrace();
+            System.out.println("InterruptedException Occurred");
         }
-        catch(Exception e)
-        {
-            System.out.println("InterruptedException Ocurred");
-        }
-
-//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-//        addListenerLocation();
     }
 //    private void addListenerLocation() {
 //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){

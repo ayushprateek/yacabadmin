@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final key = GlobalKey<ScaffoldState>();
   TextEditingController username = TextEditingController(text: "yacabadmin");
   TextEditingController password = TextEditingController(text: "yacab@123");
-  bool accountExists = false;
+  bool accountExists = false,_isLoading=false;
   bool obscureText = true;
 
   @override
@@ -170,10 +170,20 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               onPressed: () {
-                                login(context);
+                                if(!_isLoading)
+                                  {
+                                    setState(() {
+                                      _isLoading=true;
+                                    });
+                                    login(context);
+
+                                  }
+
+
                                 //Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new Dashboard()));
                               },
-                              child: Text(
+                              child: _isLoading?
+                              CircularProgressIndicator(color: Colors.black,):Text(
                                 "Log In",
                                 style: TextStyle(
                                     color: Colors.black,
@@ -236,7 +246,11 @@ class _LoginPageState extends State<LoginPage> {
       } catch (e) {
         print(e.toString());
       }
+      setState(() {
+        _isLoading=false;
+      });
       if (!loginSuccessfull) {
+
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Invalid Credentials!"),
           backgroundColor: Colors.red,
