@@ -679,19 +679,19 @@ class _VehicleState extends State<Vehicle> {
   }
 
   void updateVehicle(BuildContext context) async {
-    //todo: check limitToLast logic
     firRef
         .child("Vehicles")
         .orderByChild("driver_id")
         .equalTo(widget.driver_id)
-        .limitToLast(1)
         .once()
-        .then((DatabaseEvent datasnapshot) {
+        .then((DatabaseEvent dataSnapshot) {
       try {
-        Map<dynamic, dynamic> values =
-            datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
-        values.forEach((key, value) {
-          firRef.child("Vehicles").child(key.toString()).update({
+        if (dataSnapshot.snapshot.children.first.key != null &&
+            dataSnapshot.snapshot.children.first.key != '') {
+          firRef
+              .child("Vehicles")
+              .child(dataSnapshot.snapshot.children.first.key ?? '')
+              .update({
             "brand": brand.text.toString(),
             "model": model.text.toString(),
             "year": year.text.toString(),
@@ -701,15 +701,45 @@ class _VehicleState extends State<Vehicle> {
             "status": Status,
             "reason": Status == "Disapproved" ? reason.text : null,
           });
-        });
+        }
       } catch (e) {
         print(e.toString());
       }
-      Fluttertoast.showToast(msg: "Driver Assigned");
+      Fluttertoast.showToast(msg: 'Vehicle updated to $Status');
       Timer(Duration(seconds: 1), () {
         Navigator.pop(context);
       });
     });
+    // firRef
+    //     .child("Vehicles")
+    //     .orderByChild("driver_id")
+    //     .equalTo(widget.driver_id)
+    //     .limitToLast(1)
+    //     .once()
+    //     .then((DatabaseEvent datasnapshot) {
+    //   try {
+    //     Map<dynamic, dynamic> values =
+    //         datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
+    //     values.forEach((key, value) {
+    //       firRef.child("Vehicles").child(key.toString()).update({
+    //         "brand": brand.text.toString(),
+    //         "model": model.text.toString(),
+    //         "year": year.text.toString(),
+    //         "license": license.text.toString(),
+    //         "colour": colour.text.toString(),
+    //         "num_of_seats": num_of_seats.text.toString(),
+    //         "status": Status,
+    //         "reason": Status == "Disapproved" ? reason.text : null,
+    //       });
+    //     });
+    //   } catch (e) {
+    //     print(e.toString());
+    //   }
+    //   Fluttertoast.showToast(msg: "Driver Assigned");
+    //   Timer(Duration(seconds: 1), () {
+    //     Navigator.pop(context);
+    //   });
+    // });
 
     // try {
     //   firRef.child("Vehicles").orderByChild("driver_id").equalTo(widget.driver_id).limitToLast(1).once().then(
