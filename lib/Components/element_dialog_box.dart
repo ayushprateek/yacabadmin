@@ -42,7 +42,8 @@ Future showRejectionDialog({
         ),
         actions: [
           TextButton(onPressed: onCancel as Function(), child: Text("Cancel")),
-          TextButton(onPressed: onRejection as Function(), child: Text("Reject")),
+          TextButton(
+              onPressed: onRejection as Function(), child: Text("Reject")),
         ],
       );
     },

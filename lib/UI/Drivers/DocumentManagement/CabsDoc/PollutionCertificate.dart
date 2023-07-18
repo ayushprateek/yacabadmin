@@ -887,7 +887,6 @@ class _PollutionCertificateState extends State<PollutionCertificate> {
   }
 
   void update(BuildContext context) {
-
     firRef
         .child("PollutionCertificate")
         .orderByChild("driver_id")

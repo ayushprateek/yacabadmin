@@ -887,7 +887,6 @@ class _PANDetailsState extends State<PANDetails> {
   }
 
   void update(BuildContext context) {
-
     firRef
         .child("PANDetails")
         .orderByChild("driver_id")

@@ -889,8 +889,6 @@ class _LeasePaperState extends State<LeasePaper> {
   }
 
   void update(BuildContext context) {
-
-
     firRef
         .child("LeasePaper")
         .orderByChild("driver_id")

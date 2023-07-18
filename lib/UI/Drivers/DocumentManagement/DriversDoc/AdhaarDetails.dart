@@ -889,7 +889,6 @@ class _AdhaarDetailsState extends State<AdhaarDetails> {
   }
 
   void update(BuildContext context) {
-
     firRef
         .child("AdhaarDetails")
         .orderByChild("driver_id")

@@ -889,7 +889,6 @@ class _BankDetailsState extends State<BankDetails> {
   }
 
   void update(BuildContext context) {
-
     firRef
         .child("BankDetails")
         .orderByChild("driver_id")

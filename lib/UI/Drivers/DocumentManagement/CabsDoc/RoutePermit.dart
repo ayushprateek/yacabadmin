@@ -887,8 +887,6 @@ class _RoutePermitState extends State<RoutePermit> {
   }
 
   void update(BuildContext context) {
-
-
     firRef
         .child("RoutePermit")
         .orderByChild("driver_id")

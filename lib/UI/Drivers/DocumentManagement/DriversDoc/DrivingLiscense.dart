@@ -890,8 +890,6 @@ class _DrivingLiscenseState extends State<DrivingLiscense> {
   }
 
   void update(BuildContext context) {
-
-
     firRef
         .child("DrivingLiscense")
         .orderByChild("driver_id")
