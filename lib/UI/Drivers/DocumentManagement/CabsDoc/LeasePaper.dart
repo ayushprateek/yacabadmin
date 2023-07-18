@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -888,27 +889,34 @@ class _LeasePaperState extends State<LeasePaper> {
   }
 
   void update(BuildContext context) {
+
+
     firRef
         .child("LeasePaper")
-        .limitToLast(1)
+        .orderByChild("driver_id")
+        .equalTo(widget.driver_id)
         .once()
-        .then((DatabaseEvent datasnapshot) {
+        .then((DatabaseEvent dataSnapshot) {
       try {
-        Map<dynamic, dynamic> values =
-            datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
-        values.forEach((key, value) {
-          firRef.child("LeasePaper").child(key.toString()).update({
+        if (dataSnapshot.snapshot.children.first.key != null &&
+            dataSnapshot.snapshot.children.first.key != '') {
+          firRef
+              .child("LeasePaper")
+              .child(dataSnapshot.snapshot.children.first.key ?? '')
+              .update({
             "image": fileName,
             "status": Status,
             "date_updated": DateTime.now().toIso8601String(),
             "reason": Status == "Disapproved" ? reason.text : null,
           });
-        });
+        }
       } catch (e) {
         print(e.toString());
       }
-      Navigator.pop(context);
-      setState(() {});
+      Fluttertoast.showToast(msg: 'LeasePaper updated to $Status');
+      Timer(Duration(seconds: 1), () {
+        Navigator.pop(context);
+      });
     });
   }
 // void add(BuildContext context)

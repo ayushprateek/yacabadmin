@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -888,44 +889,31 @@ class _InsuranceState extends State<Insurance> {
   void update(BuildContext context) {
     firRef
         .child("Insurance")
-        .limitToLast(1)
+        .orderByChild("driver_id")
+        .equalTo(widget.driver_id)
         .once()
-        .then((DatabaseEvent datasnapshot) {
+        .then((DatabaseEvent dataSnapshot) {
       try {
-        Map<dynamic, dynamic> values =
-            datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
-        values.forEach((key, value) {
-          firRef.child("Insurance").child(key.toString()).update({
+        if (dataSnapshot.snapshot.children.first.key != null &&
+            dataSnapshot.snapshot.children.first.key != '') {
+          firRef
+              .child("Insurance")
+              .child(dataSnapshot.snapshot.children.first.key ?? '')
+              .update({
             "image": fileName,
             "status": Status,
             "date_updated": DateTime.now().toIso8601String(),
             "reason": Status == "Disapproved" ? reason.text : null,
           });
-        });
+        }
       } catch (e) {
         print(e.toString());
       }
-      Navigator.pop(context);
-      setState(() {});
+      Fluttertoast.showToast(msg: 'Insurance updated to $Status');
+      Timer(Duration(seconds: 1), () {
+        Navigator.pop(context);
+      });
     });
-    // firRef.child("Insurance")
-    //     .limitToLast(1)
-    //     .once().then((snapshot){
-    //   Map<dynamic,dynamic> values=snapshot.value;
-    //   if(values!=null)
-    //     values.forEach((key, value) {
-    //       firRef.child("Insurance").child(key.toString()).update({
-    //         "image":fileName,
-    //         "status":Status,
-    //         "date_updated":DateTime.now().toIso8601String(),
-    //         "reason":Status=="Disapproved"?reason.text:null,
-    //       });
-    //     });
-    // });
-    // Navigator.pop(context);
-    // setState(() {
-    //
-    // });
   }
 // void add(BuildContext context)
 // {

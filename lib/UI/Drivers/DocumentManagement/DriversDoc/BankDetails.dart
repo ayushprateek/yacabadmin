@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -888,29 +889,33 @@ class _BankDetailsState extends State<BankDetails> {
   }
 
   void update(BuildContext context) {
-    //todo:CHECK WHY IS IT LIMIT TO LAST 1 it should be widget.driver_id
 
     firRef
         .child("BankDetails")
-        .limitToLast(1)
+        .orderByChild("driver_id")
+        .equalTo(widget.driver_id)
         .once()
-        .then((DatabaseEvent datasnapshot) {
+        .then((DatabaseEvent dataSnapshot) {
       try {
-        Map<dynamic, dynamic> values =
-            datasnapshot.snapshot.children.first.value as Map<dynamic, dynamic>;
-        values.forEach((key, value) {
-          firRef.child("BankDetails").child(key.toString()).update({
+        if (dataSnapshot.snapshot.children.first.key != null &&
+            dataSnapshot.snapshot.children.first.key != '') {
+          firRef
+              .child("BankDetails")
+              .child(dataSnapshot.snapshot.children.first.key ?? '')
+              .update({
             "image": fileName,
             "status": Status,
             "date_updated": DateTime.now().toIso8601String(),
             "reason": Status == "Disapproved" ? reason.text : null,
           });
-        });
+        }
       } catch (e) {
         print(e.toString());
       }
-      Navigator.pop(context);
-      setState(() {});
+      Fluttertoast.showToast(msg: 'BankDetails updated to $Status');
+      Timer(Duration(seconds: 1), () {
+        Navigator.pop(context);
+      });
     });
   }
 // void add(BuildContext context)
