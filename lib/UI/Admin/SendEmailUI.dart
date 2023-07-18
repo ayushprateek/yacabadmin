@@ -238,7 +238,7 @@ class _SendEmailUIState extends State<SendEmailUI> {
                                           header.text,
                                           body.text);
                                       clearTextFields();
-                                      Fluttertoast.showToast(msg: "Email sent");
+                                      // Fluttertoast.showToast(msg: "Email sent");
 
                                       Navigator.pop(context);
                                       setState(() {});

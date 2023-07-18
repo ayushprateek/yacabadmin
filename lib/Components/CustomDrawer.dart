@@ -139,23 +139,23 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       MaterialPageRoute(builder: ((context) => AllDrivers())));
                 },
               ),
-              InkWell(
-                child: ListTile(
-                  leading: Icon(
-                    Icons.person,
-                  ),
-                  trailing: Icon(
-                    MdiIcons.genderMale,
-                  ),
-                  title: Text("All Driver's Location"),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => AllDriversLocation())));
-                },
-              ),
+              // InkWell(
+              //   child: ListTile(
+              //     leading: Icon(
+              //       Icons.person,
+              //     ),
+              //     trailing: Icon(
+              //       MdiIcons.genderMale,
+              //     ),
+              //     title: Text("All Driver's Location"),
+              //   ),
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: ((context) => AllDriversLocation())));
+              //   },
+              // ),
               // InkWell(
               //   child: ListTile(
               //     leading: Icon(Icons.person, ),
