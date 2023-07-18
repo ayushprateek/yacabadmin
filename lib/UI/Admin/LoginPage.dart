@@ -17,8 +17,11 @@ class _LoginPageState extends State<LoginPage> {
   double div = 1.35;
 
   final key = GlobalKey<ScaffoldState>();
-  TextEditingController username = TextEditingController(text: "yacabadmin");
-  TextEditingController password = TextEditingController(text: "yacab@123");
+
+  // TextEditingController username = TextEditingController(text: "yacabadmin");
+  // TextEditingController password = TextEditingController(text: "yacab@123");
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
   bool accountExists = false, _isLoading = false;
   bool obscureText = true;
 
