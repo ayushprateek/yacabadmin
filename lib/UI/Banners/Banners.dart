@@ -34,24 +34,6 @@ class _BannersState extends State<Banners> {
                       banners.add(banner);
                     }
                   });
-                  // try
-                  //     {
-                  //       Map<dynamic,dynamic> values=snapshot.data.snapshot.value;
-                  //       if(values!=null)
-                  //         values.forEach((key, value) {
-                  //           if(value!=null && value['title']!=null)
-                  //             banners.add(value);
-                  //         });
-                  //     }
-                  //     catch(e)
-                  //     {
-                  //       List<dynamic> values=snapshot.data.snapshot.value;
-                  //       if(values!=null)
-                  //         values.forEach((value) {
-                  //           if(value!=null && value['title']!=null)
-                  //             banners.add(value);
-                  //         });
-                  //     }
                   return ListView.builder(
                       itemCount: banners.length,
                       shrinkWrap: true,
@@ -60,6 +42,7 @@ class _BannersState extends State<Banners> {
                         Widget image = FutureBuilder(
                             future: imageurl(banners[index]['image']),
                             builder: (context, AsyncSnapshot<Url> snap) {
+                              if (!snap.hasData) return Container();
                               try {
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
