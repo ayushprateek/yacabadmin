@@ -218,27 +218,30 @@ class _AllCustomersState extends State<AllCustomers> {
                   DatabaseEvent? databaseEvent = snapshot.data as DatabaseEvent;
                   databaseEvent.snapshot.children.forEach((event) {
                     Map value = event.value as Map;
-                    if (value != null) if (name.text.isNotEmpty
-                        ? value['name']
-                            .toString()
-                            .toLowerCase()
-                            .contains(name.text.toLowerCase())
-                        : true && email.text.isNotEmpty
-                            ? value['email']
-                                .toString()
-                                .toLowerCase()
-                                .contains(email.text.toLowerCase())
-                            : true && mobile.text.isNotEmpty
-                                ? value['mobile']
-                                    .toString()
-                                    .contains(mobile.text)
-                                : true && customer_id.text.isNotEmpty
-                                    ? value['customer_id']
-                                        .toString()
-                                        .contains(customer_id.text)
-                                    : true) {
-                      customers.add(value);
-                    }
+
+
+                    if(value['mobile']!=null)
+                    if ( name.text.isNotEmpty
+                      ? value['name']
+                          .toString()
+                          .toLowerCase()
+                          .contains(name.text.toLowerCase())
+                      : true && email.text.isNotEmpty
+                          ? value['email']
+                              .toString()
+                              .toLowerCase()
+                              .contains(email.text.toLowerCase())
+                          : true && mobile.text.isNotEmpty
+                              ? value['mobile']
+                                  .toString()
+                                  .contains(mobile.text)
+                              : true && customer_id.text.isNotEmpty
+                                  ? value['customer_id']
+                                      .toString()
+                                      .contains(customer_id.text)
+                                  : true) {
+                    customers.add(value);
+                  }
                   });
 
                   // try
