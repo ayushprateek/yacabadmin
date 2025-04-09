@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:multi_image_picker_plus/multi_image_picker_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:yacabadmin/Components/Customs.dart';
 import 'package:yacabadmin/Components/GetImageURL.dart';
+import 'package:yacabadmin/UI/animated_dialog_box.dart';
 
 enum Status { enabled, disabled }
 
@@ -30,7 +31,7 @@ class _EditBannerState extends State<EditBanner> {
   bool hasUploaded = false;
 
   Future pickImage(ImageSource source) async {
-    final pickedFile = await picker.getImage(source: source);
+    final pickedFile = await picker.pickImage(source: source);
     if (pickedFile != null) {
       _imageFile = File(pickedFile.path);
       // print(_imageFile?.lengthSync().toString()+"KB");
@@ -253,69 +254,69 @@ class _EditBannerState extends State<EditBanner> {
                                         size: 35,
                                       ),
                                       onPressed: () {
-                                        showAnimatedDialog(
-                                          context: context,
-                                          barrierDismissible: true,
-                                          builder: (BuildContext context) {
-                                            return ClassicGeneralDialogWidget(
-                                              titleText: 'Use',
-                                              contentText:
-                                                  'How do u want to upload?',
-                                              negativeText: 'Camera',
-                                              onNegativeClick: () {
-                                                pickImage(ImageSource.camera);
-                                                Navigator.pop(context);
-                                              },
-                                              positiveText: "Gallery",
-                                              onPositiveClick: () {
-                                                pickImage(ImageSource.gallery);
-                                                Navigator.pop(context);
-                                              },
-                                            );
-                                          },
-                                        );
-                                        // animated_dialog_box.showScaleAlertBox(
-                                        //     title: Center(child: Text("Use")),
-                                        //     context: context,
-                                        //     firstButton: MaterialButton(
-                                        //       // OPTIONAL BUTTON
-                                        //       shape: RoundedRectangleBorder(
-                                        //         borderRadius:
-                                        //             BorderRadius.circular(40),
-                                        //       ),
-                                        //       color: Colors.black,
-                                        //       child: Text('Camera',
-                                        //           style: TextStyle(
-                                        //               color: Colors.white)),
-                                        //       onPressed: () {
+                                        // showAnimatedDialog(
+                                        //   context: context,
+                                        //   barrierDismissible: true,
+                                        //   builder: (BuildContext context) {
+                                        //     return ClassicGeneralDialogWidget(
+                                        //       titleText: 'Use',
+                                        //       contentText:
+                                        //           'How do u want to upload?',
+                                        //       negativeText: 'Camera',
+                                        //       onNegativeClick: () {
                                         //         pickImage(ImageSource.camera);
                                         //         Navigator.pop(context);
                                         //       },
-                                        //     ),
-                                        //     secondButton: MaterialButton(
-                                        //       // FIRST BUTTON IS REQUIRED
-                                        //       shape: RoundedRectangleBorder(
-                                        //         borderRadius:
-                                        //             BorderRadius.circular(40),
-                                        //       ),
-                                        //       color: Colors.black,
-                                        //       child: Text('Gallery',
-                                        //           style: TextStyle(
-                                        //               color: Colors.white)),
-                                        //       onPressed: () {
+                                        //       positiveText: "Gallery",
+                                        //       onPositiveClick: () {
                                         //         pickImage(ImageSource.gallery);
                                         //         Navigator.pop(context);
                                         //       },
-                                        //     ),
-                                        //     icon: Icon(
-                                        //       Icons.info,
-                                        //       color: Colors.red,
-                                        //     ),
-                                        //     // IF YOU WANT TO ADD ICON
-                                        //     yourWidget: Container(
-                                        //       child: Text(
-                                        //           'How do u want to upload?'),
-                                        //     ));
+                                        //     );
+                                        //   },
+                                        // );
+                                        AnimatedDialogBox.showScaleAlertBox(
+                                            title: Center(child: Text("Use")),
+                                            context: context,
+                                            firstButton: MaterialButton(
+                                              // OPTIONAL BUTTON
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                              ),
+                                              color: Colors.black,
+                                              child: Text('Camera',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {
+                                                pickImage(ImageSource.camera);
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            secondButton: MaterialButton(
+                                              // FIRST BUTTON IS REQUIRED
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                              ),
+                                              color: Colors.black,
+                                              child: Text('Gallery',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {
+                                                pickImage(ImageSource.gallery);
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            icon: Icon(
+                                              Icons.info,
+                                              color: Colors.red,
+                                            ),
+                                            // IF YOU WANT TO ADD ICON
+                                            yourWidget: Container(
+                                              child: Text(
+                                                  'How do u want to upload?'),
+                                            ));
                                       },
                                     ),
                                   ),
@@ -422,63 +423,63 @@ class _EditBannerState extends State<EditBanner> {
                 ),
               ),
               onPressed: () {
-                showAnimatedDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (BuildContext context) {
-                    return ClassicGeneralDialogWidget(
-                      titleText: 'Delete',
-                      contentText:
-                          'Are you sure you want to Delete this banner?',
-                      negativeText: 'Cancel',
-                      onNegativeClick: () {
-                        Navigator.pop(context);
-                      },
-                      positiveText: "Delete",
-                      onPositiveClick: () {
-                        delete(context);
-                      },
-                    );
-                  },
-                );
-                // animated_dialog_box.showScaleAlertBox(
-                //     title: Center(child: Text("Delete")),
-                //     // IF YOU WANT TO ADD
-                //     context: context,
-                //     firstButton: MaterialButton(
-                //       // OPTIONAL BUTTON
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(40),
-                //       ),
-                //       color: Colors.white,
-                //       child: Text('Cancel'),
-                //       onPressed: () {
-                //         Navigator.of(context).pop();
+                // showAnimatedDialog(
+                //   context: context,
+                //   barrierDismissible: true,
+                //   builder: (BuildContext context) {
+                //     return ClassicGeneralDialogWidget(
+                //       titleText: 'Delete',
+                //       contentText:
+                //           'Are you sure you want to Delete this banner?',
+                //       negativeText: 'Cancel',
+                //       onNegativeClick: () {
+                //         Navigator.pop(context);
                 //       },
-                //     ),
-                //     secondButton: MaterialButton(
-                //       // FIRST BUTTON IS REQUIRED
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(40),
-                //       ),
-                //       color: Colors.red,
-                //       child: Text(
-                //         'Delete',
-                //         style: TextStyle(color: Colors.white),
-                //       ),
-                //       onPressed: () {
-                //         delete(context); //***********************************************************DELETE CALLED
+                //       positiveText: "Delete",
+                //       onPositiveClick: () {
+                //         delete(context);
                 //       },
-                //     ),
-                //     icon: Icon(
-                //       Icons.info_outline,
-                //       color: Colors.red,
-                //     ),
-                //     // IF YOU WANT TO ADD ICON
-                //     yourWidget: Container(
-                //       child:
-                //           Text('Are you sure you want to Delete this banner?'),
-                //     ));
+                //     );
+                //   },
+                // );
+                AnimatedDialogBox.showScaleAlertBox(
+                    title: Center(child: Text("Delete")),
+                    // IF YOU WANT TO ADD
+                    context: context,
+                    firstButton: MaterialButton(
+                      // OPTIONAL BUTTON
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      color: Colors.white,
+                      child: Text('Cancel'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    secondButton: MaterialButton(
+                      // FIRST BUTTON IS REQUIRED
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      color: Colors.red,
+                      child: Text(
+                        'Delete',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        delete(context); //***********************************************************DELETE CALLED
+                      },
+                    ),
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: Colors.red,
+                    ),
+                    // IF YOU WANT TO ADD ICON
+                    yourWidget: Container(
+                      child:
+                          Text('Are you sure you want to Delete this banner?'),
+                    ));
               },
               child: Text(
                 "Delete this banner",
@@ -698,68 +699,69 @@ class _BannerStatusState extends State<BannerStatus> {
         InkWell(
           onTap: () {
             if (status != Status.enabled) {
-              showAnimatedDialog(
-                context: context,
-                barrierDismissible: true,
-                builder: (BuildContext context) {
-                  return ClassicGeneralDialogWidget(
-                    titleText: 'Enable',
-                    contentText: 'Enable this banner?',
-                    negativeText: 'No',
-                    onNegativeClick: () {
-                      Navigator.pop(context);
+              // showAnimatedDialog(
+              //   context: context,
+              //   barrierDismissible: true,
+              //   builder: (BuildContext context) {
+              //     return ClassicGeneralDialogWidget(
+              //       titleText: 'Enable',
+              //       contentText: 'Enable this banner?',
+              //       negativeText: 'No',
+              //       onNegativeClick: () {
+              //         Navigator.pop(context);
+              //       },
+              //       positiveText: "Yes",
+              //       onPositiveClick: () {
+              //         setState(() {
+              //           status = Status.enabled;
+              //         });
+              //         Navigator.of(context).pop();
+              //       },
+              //     );
+              //   },
+              // );
+              AnimatedDialogBox.showScaleAlertBox(
+                  title: Center(child: Text("Enable")),
+                  // IF YOU WANT TO ADD
+                  context: context,
+                  firstButton: MaterialButton(
+                    // OPTIONAL BUTTON
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    color: Colors.white,
+                    child: Text('No'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
                     },
-                    positiveText: "Yes",
-                    onPositiveClick: () {
+                  ),
+                  secondButton: MaterialButton(
+                    // FIRST BUTTON IS REQUIRED
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    color: Colors.black,
+                    child: Text(
+                      'Yes',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
                       setState(() {
                         status = Status.enabled;
                       });
                       Navigator.of(context).pop();
                     },
-                  );
-                },
-              );
+                  ),
+                  icon: Icon(
+                    Icons.info_outline,
+                    color: Colors.red,
+                  ),
+                  // IF YOU WANT TO ADD ICON
+                  yourWidget: Container(
+                    child: Text('Enable this banner?'),
+                  ));
             }
-            // animated_dialog_box.showScaleAlertBox(
-            //     title: Center(child: Text("Enable")),
-            //     // IF YOU WANT TO ADD
-            //     context: context,
-            //     firstButton: MaterialButton(
-            //       // OPTIONAL BUTTON
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(40),
-            //       ),
-            //       color: Colors.white,
-            //       child: Text('No'),
-            //       onPressed: () {
-            //         Navigator.of(context).pop();
-            //       },
-            //     ),
-            //     secondButton: MaterialButton(
-            //       // FIRST BUTTON IS REQUIRED
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(40),
-            //       ),
-            //       color: Colors.black,
-            //       child: Text(
-            //         'Yes',
-            //         style: TextStyle(color: Colors.white),
-            //       ),
-            //       onPressed: () {
-            //         setState(() {
-            //           status = Status.enabled;
-            //         });
-            //         Navigator.of(context).pop();
-            //       },
-            //     ),
-            //     icon: Icon(
-            //       Icons.info_outline,
-            //       color: Colors.red,
-            //     ),
-            //     // IF YOU WANT TO ADD ICON
-            //     yourWidget: Container(
-            //       child: Text('Enable this banner?'),
-            //     ));
+
           },
           child: Row(
             children: [
@@ -776,68 +778,69 @@ class _BannerStatusState extends State<BannerStatus> {
         InkWell(
           onTap: () {
             if (status != Status.disabled) {
-              showAnimatedDialog(
-                context: context,
-                barrierDismissible: true,
-                builder: (BuildContext context) {
-                  return ClassicGeneralDialogWidget(
-                    titleText: 'Disable',
-                    contentText: 'Disable this banner?',
-                    negativeText: 'No',
-                    onNegativeClick: () {
-                      Navigator.pop(context);
+              // showAnimatedDialog(
+              //   context: context,
+              //   barrierDismissible: true,
+              //   builder: (BuildContext context) {
+              //     return ClassicGeneralDialogWidget(
+              //       titleText: 'Disable',
+              //       contentText: 'Disable this banner?',
+              //       negativeText: 'No',
+              //       onNegativeClick: () {
+              //         Navigator.pop(context);
+              //       },
+              //       positiveText: "Yes",
+              //       onPositiveClick: () {
+              //         setState(() {
+              //           status = Status.disabled;
+              //         });
+              //         Navigator.of(context).pop();
+              //       },
+              //     );
+              //   },
+              // );
+              AnimatedDialogBox.showScaleAlertBox(
+                  title: Center(child: Text("Disable")),
+                  // IF YOU WANT TO ADD
+                  context: context,
+                  firstButton: MaterialButton(
+                    // OPTIONAL BUTTON
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    color: Colors.white,
+                    child: Text('No'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
                     },
-                    positiveText: "Yes",
-                    onPositiveClick: () {
+                  ),
+                  secondButton: MaterialButton(
+                    // FIRST BUTTON IS REQUIRED
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    color: Colors.black,
+                    child: Text(
+                      'Yes',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
                       setState(() {
                         status = Status.disabled;
                       });
                       Navigator.of(context).pop();
                     },
-                  );
-                },
-              );
+                  ),
+                  icon: Icon(
+                    Icons.info_outline,
+                    color: Colors.red,
+                  ),
+                  // IF YOU WANT TO ADD ICON
+                  yourWidget: Container(
+                    child: Text('Disable this banner?'),
+                  ));
             }
-            // animated_dialog_box.showScaleAlertBox(
-            //     title: Center(child: Text("Disable")),
-            //     // IF YOU WANT TO ADD
-            //     context: context,
-            //     firstButton: MaterialButton(
-            //       // OPTIONAL BUTTON
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(40),
-            //       ),
-            //       color: Colors.white,
-            //       child: Text('No'),
-            //       onPressed: () {
-            //         Navigator.of(context).pop();
-            //       },
-            //     ),
-            //     secondButton: MaterialButton(
-            //       // FIRST BUTTON IS REQUIRED
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(40),
-            //       ),
-            //       color: Colors.black,
-            //       child: Text(
-            //         'Yes',
-            //         style: TextStyle(color: Colors.white),
-            //       ),
-            //       onPressed: () {
-            //         setState(() {
-            //           status = Status.disabled;
-            //         });
-            //         Navigator.of(context).pop();
-            //       },
-            //     ),
-            //     icon: Icon(
-            //       Icons.info_outline,
-            //       color: Colors.red,
-            //     ),
-            //     // IF YOU WANT TO ADD ICON
-            //     yourWidget: Container(
-            //       child: Text('Disable this banner?'),
-            //     ));
+
           },
           child: Row(
             children: [

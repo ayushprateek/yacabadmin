@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:multi_image_picker_plus/multi_image_picker_plus.dart';
 import 'package:yacabadmin/Components/Customs.dart';
 import 'package:yacabadmin/Components/GetImageURL.dart';
 import 'package:yacabadmin/UI/Categories/AddCategory.dart';
@@ -120,46 +120,46 @@ class _SubCategoriesState extends State<SubCategories> {
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                             child: InkWell(
                               onTap: () {
-                                // Navigator.push(context, MaterialPageRoute(builder: (context)=>EditSubcategories(category_id: categories[index]['category_id'],name: categories[index]['name'],)));
-                                showAnimatedDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  builder: (BuildContext context) {
-                                    return ClassicGeneralDialogWidget(
-                                      titleText: '',
-                                      contentText: 'Please select',
-                                      negativeText: 'Edit',
-                                      onNegativeClick: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditSubcategories(
-                                                      category_id:
-                                                          categories[index]
-                                                              ['category_id'],
-                                                      name: categories[index]
-                                                          ['name'],
-                                                    )));
-                                      },
-                                      positiveText: "View Subcategories",
-                                      onPositiveClick: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Rates(
-                                                      category_id:
-                                                          categories[index]
-                                                              ['category_id'],
-                                                      name: categories[index]
-                                                          ['name'],
-                                                    )));
-                                      },
-                                    );
-                                  },
-                                );
+                                //todo:
+                                // showAnimatedDialog(
+                                //   context: context,
+                                //   barrierDismissible: true,
+                                //   builder: (BuildContext context) {
+                                //     return ClassicGeneralDialogWidget(
+                                //       titleText: '',
+                                //       contentText: 'Please select',
+                                //       negativeText: 'Edit',
+                                //       onNegativeClick: () {
+                                //         Navigator.pop(context);
+                                //         Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     EditSubcategories(
+                                //                       category_id:
+                                //                           categories[index]
+                                //                               ['category_id'],
+                                //                       name: categories[index]
+                                //                           ['name'],
+                                //                     )));
+                                //       },
+                                //       positiveText: "View Subcategories",
+                                //       onPositiveClick: () {
+                                //         Navigator.pop(context);
+                                //         Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) => Rates(
+                                //                       category_id:
+                                //                           categories[index]
+                                //                               ['category_id'],
+                                //                       name: categories[index]
+                                //                           ['name'],
+                                //                     )));
+                                //       },
+                                //     );
+                                //   },
+                                // );
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

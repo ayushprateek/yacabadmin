@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-var firRef = FirebaseDatabase.instance.reference();
+var firRef = FirebaseDatabase.instance.ref();
 const buttonColor = Color(0XFFFED428);

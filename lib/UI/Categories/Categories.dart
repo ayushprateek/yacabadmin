@@ -1,11 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:multi_image_picker_plus/multi_image_picker_plus.dart';
 import 'package:yacabadmin/Components/Customs.dart';
 import 'package:yacabadmin/Components/GetImageURL.dart';
 import 'package:yacabadmin/UI/Categories/AddCategory.dart';
 import 'package:yacabadmin/UI/Categories/EditCategory.dart';
 import 'package:yacabadmin/UI/Categories/SubCategories.dart';
+import 'package:yacabadmin/UI/animated_dialog_box.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -116,110 +117,110 @@ class _CategoriesState extends State<Categories> {
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                             child: InkWell(
                               onTap: () {
-                                showAnimatedDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  builder: (BuildContext context) {
-                                    return ClassicGeneralDialogWidget(
-                                      titleText: '',
-                                      contentText: 'Please select',
-                                      negativeText: 'Edit',
-                                      onNegativeClick: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditCategory(
-                                                      category_id:
-                                                          categories[index]
-                                                              ['category_id'],
-                                                      name: categories[index]
-                                                          ['name'],
-                                                    )));
-                                      },
-                                      positiveText: "View Subcategories",
-                                      onPositiveClick: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SubCategories(
-                                                      category_id:
-                                                          categories[index]
-                                                              ['category_id'],
-                                                      name: categories[index]
-                                                          ['name'],
-                                                    )));
-                                      },
-                                    );
-                                  },
-                                );
-                                // animated_dialog_box.showScaleAlertBox(
+                                // showAnimatedDialog(
                                 //   context: context,
-                                //   title: Text(""),
-                                //   icon: Icon(Icons.arrow_forward),
-                                //   yourWidget: Text("Please select",
-                                //     textAlign: TextAlign.center,
-                                //     style: TextStyle(
-                                //         color: Colors.black,
-                                //         fontWeight: FontWeight.w600,
-                                //
-                                //         fontSize: 20
-                                //     ),),
-                                //   firstButton:  Container(
-                                //     decoration: BoxDecoration(
-                                //
-                                //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                //
-                                //     child: MaterialButton(
-                                //
-                                //       shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.all(
-                                //           Radius.circular(10),
-                                //         ),
-                                //       ),
-                                //       onPressed: () {
+                                //   barrierDismissible: true,
+                                //   builder: (BuildContext context) {
+                                //     return ClassicGeneralDialogWidget(
+                                //       titleText: '',
+                                //       contentText: 'Please select',
+                                //       negativeText: 'Edit',
+                                //       onNegativeClick: () {
                                 //         Navigator.pop(context);
-                                //         Navigator.push(context, MaterialPageRoute(builder: (context)=>EditCategory(category_id: categories[index]['category_id'],name: categories[index]['name'],)));
+                                //         Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     EditCategory(
+                                //                       category_id:
+                                //                           categories[index]
+                                //                               ['category_id'],
+                                //                       name: categories[index]
+                                //                           ['name'],
+                                //                     )));
                                 //       },
-                                //       child:Text("Edit",
-                                //         style: TextStyle(
-                                //             color: Colors.black,
-                                //             fontSize: 20
-                                //         ),),
-                                //       color: buttonColor,
-                                //     ),
-                                //   ),
-                                //   secondButton: Container(
-                                //
-                                //
-                                //     decoration: BoxDecoration(
-                                //
-                                //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                //
-                                //     child: MaterialButton(
-                                //
-                                //       shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.all(
-                                //           Radius.circular(10),
-                                //         ),
-                                //       ),
-                                //       onPressed: () {
+                                //       positiveText: "View Subcategories",
+                                //       onPositiveClick: () {
                                 //         Navigator.pop(context);
-                                //         Navigator.push(context, MaterialPageRoute(builder: (context)=>SubCategories(category_id: categories[index]['category_id'],name: categories[index]['name'],)));
-                                //
+                                //         Navigator.push(
+                                //             context,
+                                //             MaterialPageRoute(
+                                //                 builder: (context) =>
+                                //                     SubCategories(
+                                //                       category_id:
+                                //                           categories[index]
+                                //                               ['category_id'],
+                                //                       name: categories[index]
+                                //                           ['name'],
+                                //                     )));
                                 //       },
-                                //       child:Text("View Subcategories",
-                                //         style: TextStyle(
-                                //             color: Colors.black,
-                                //
-                                //             fontSize: 20
-                                //         ),),
-                                //       color: buttonColor,
-                                //     ),
-                                //   ),);
+                                //     );
+                                //   },
+                                // );
+                                AnimatedDialogBox.showScaleAlertBox(
+                                  context: context,
+                                  title: Text(""),
+                                  icon: Icon(Icons.arrow_forward),
+                                  yourWidget: Text("Please select",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+
+                                        fontSize: 20
+                                    ),),
+                                  firstButton:  Container(
+                                    decoration: BoxDecoration(
+
+                                        borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                    child: MaterialButton(
+
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>EditCategory(category_id: categories[index]['category_id'],name: categories[index]['name'],)));
+                                      },
+                                      child:Text("Edit",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20
+                                        ),),
+                                      color: buttonColor,
+                                    ),
+                                  ),
+                                  secondButton: Container(
+
+
+                                    decoration: BoxDecoration(
+
+                                        borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                    child: MaterialButton(
+
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SubCategories(category_id: categories[index]['category_id'],name: categories[index]['name'],)));
+
+                                      },
+                                      child:Text("View Subcategories",
+                                        style: TextStyle(
+                                            color: Colors.black,
+
+                                            fontSize: 20
+                                        ),),
+                                      color: buttonColor,
+                                    ),
+                                  ),);
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

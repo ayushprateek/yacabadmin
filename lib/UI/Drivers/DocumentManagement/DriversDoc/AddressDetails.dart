@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:multi_image_picker_plus/multi_image_picker_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:yacabadmin/Components/Customs.dart';
 import 'package:yacabadmin/Components/GetImageURL.dart';
 import 'package:yacabadmin/Components/element_dialog_box.dart';
+import 'package:yacabadmin/UI/animated_dialog_box.dart';
 
 class AddressDetails extends StatefulWidget {
   String driver_id;
@@ -31,7 +32,7 @@ class _AddressDetailsState extends State<AddressDetails> {
   final picker = ImagePicker();
 
   Future pickImage(ImageSource source) async {
-    final pickedFile = await picker.getImage(source: source);
+    final pickedFile = await picker.pickImage(source: source);
     if (pickedFile != null)
       setState(() {
         _imageFile = File(pickedFile.path);
@@ -165,91 +166,91 @@ class _AddressDetailsState extends State<AddressDetails> {
                             child: Center(
                               child: IconButton(
                                 onPressed: () {
-                                  showAnimatedDialog(
-                                    context: context,
-                                    barrierDismissible: true,
-                                    builder: (BuildContext context) {
-                                      return ClassicGeneralDialogWidget(
-                                        titleText: 'Upload Image',
-                                        contentText:
-                                            "How do you want to upload?",
-                                        negativeText: 'Camera',
-                                        onNegativeClick: () {
-                                          Navigator.pop(context);
-                                          pickImage(ImageSource.camera);
-                                        },
-                                        positiveText: "Gallery",
-                                        onPositiveClick: () {
-                                          Navigator.pop(context);
-                                          pickImage(ImageSource.gallery);
-                                        },
-                                      );
-                                    },
-                                  );
-                                  // animated_dialog_box.showScaleAlertBox(
+                                  // showAnimatedDialog(
                                   //   context: context,
-                                  //   title: Text("Upload Image"),
-                                  //   icon: Icon(Icons.upload_rounded),
-                                  //   yourWidget: Text("How do you want to upload?",
-                                  //     textAlign: TextAlign.center,
-                                  //     style: TextStyle(
-                                  //         color: Colors.black,
-                                  //         fontWeight: FontWeight.w600,
-                                  //
-                                  //         fontSize: 20
-                                  //     ),),
-                                  //   firstButton:  Container(
-                                  //     decoration: BoxDecoration(
-                                  //
-                                  //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  //
-                                  //     child: MaterialButton(
-                                  //
-                                  //       shape: RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.all(
-                                  //           Radius.circular(10),
-                                  //         ),
-                                  //       ),
-                                  //       onPressed: () {
+                                  //   barrierDismissible: true,
+                                  //   builder: (BuildContext context) {
+                                  //     return ClassicGeneralDialogWidget(
+                                  //       titleText: 'Upload Image',
+                                  //       contentText:
+                                  //           "How do you want to upload?",
+                                  //       negativeText: 'Camera',
+                                  //       onNegativeClick: () {
                                   //         Navigator.pop(context);
                                   //         pickImage(ImageSource.camera);
                                   //       },
-                                  //       child:Text("Camera",
-                                  //         style: TextStyle(
-                                  //             color: Colors.black,
-                                  //             fontSize: 20
-                                  //         ),),
-                                  //       color: buttonColor,
-                                  //     ),
-                                  //   ),
-                                  //   secondButton: Container(
-                                  //
-                                  //
-                                  //     decoration: BoxDecoration(
-                                  //
-                                  //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  //
-                                  //     child: MaterialButton(
-                                  //
-                                  //       shape: RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.all(
-                                  //           Radius.circular(10),
-                                  //         ),
-                                  //       ),
-                                  //       onPressed: () {
+                                  //       positiveText: "Gallery",
+                                  //       onPositiveClick: () {
                                   //         Navigator.pop(context);
                                   //         pickImage(ImageSource.gallery);
-                                  //
                                   //       },
-                                  //       child:Text("Gallery",
-                                  //         style: TextStyle(
-                                  //             color: Colors.black,
-                                  //
-                                  //             fontSize: 20
-                                  //         ),),
-                                  //       color: buttonColor,
-                                  //     ),
-                                  //   ),);
+                                  //     );
+                                  //   },
+                                  // );
+                                  AnimatedDialogBox.showScaleAlertBox(
+                                    context: context,
+                                    title: Text("Upload Image"),
+                                    icon: Icon(Icons.upload_rounded),
+                                    yourWidget: Text("How do you want to upload?",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+
+                                          fontSize: 20
+                                      ),),
+                                    firstButton:  Container(
+                                      decoration: BoxDecoration(
+
+                                          borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                      child: MaterialButton(
+
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          pickImage(ImageSource.camera);
+                                        },
+                                        child:Text("Camera",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20
+                                          ),),
+                                        color: buttonColor,
+                                      ),
+                                    ),
+                                    secondButton: Container(
+
+
+                                      decoration: BoxDecoration(
+
+                                          borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                      child: MaterialButton(
+
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          pickImage(ImageSource.gallery);
+
+                                        },
+                                        child:Text("Gallery",
+                                          style: TextStyle(
+                                              color: Colors.black,
+
+                                              fontSize: 20
+                                          ),),
+                                        color: buttonColor,
+                                      ),
+                                    ),);
                                 },
                                 icon: Icon(
                                   Icons.camera_alt,
@@ -283,94 +284,94 @@ class _AddressDetailsState extends State<AddressDetails> {
                                       child: Center(
                                         child: IconButton(
                                           onPressed: () {
-                                            showAnimatedDialog(
-                                              context: context,
-                                              barrierDismissible: true,
-                                              builder: (BuildContext context) {
-                                                return ClassicGeneralDialogWidget(
-                                                  titleText: 'Upload Image',
-                                                  contentText:
-                                                      "How do you want to upload?",
-                                                  negativeText: 'Camera',
-                                                  onNegativeClick: () {
-                                                    Navigator.pop(context);
-                                                    pickImage(
-                                                        ImageSource.camera);
-                                                  },
-                                                  positiveText: "Gallery",
-                                                  onPositiveClick: () {
-                                                    Navigator.pop(context);
-                                                    pickImage(
-                                                        ImageSource.gallery);
-                                                  },
-                                                );
-                                              },
-                                            );
-
-                                            // animated_dialog_box.showScaleAlertBox(
+                                            // showAnimatedDialog(
                                             //   context: context,
-                                            //   title: Text("Upload Image"),
-                                            //   icon: Icon(Icons.upload_rounded),
-                                            //   yourWidget: Text("How do you want to upload?",
-                                            //     textAlign: TextAlign.center,
-                                            //     style: TextStyle(
-                                            //         color: Colors.black,
-                                            //         fontWeight: FontWeight.w600,
-                                            //
-                                            //         fontSize: 20
-                                            //     ),),
-                                            //   firstButton:  Container(
-                                            //     decoration: BoxDecoration(
-                                            //
-                                            //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                            //
-                                            //     child: MaterialButton(
-                                            //
-                                            //       shape: RoundedRectangleBorder(
-                                            //         borderRadius: BorderRadius.all(
-                                            //           Radius.circular(10),
-                                            //         ),
-                                            //       ),
-                                            //       onPressed: () {
+                                            //   barrierDismissible: true,
+                                            //   builder: (BuildContext context) {
+                                            //     return ClassicGeneralDialogWidget(
+                                            //       titleText: 'Upload Image',
+                                            //       contentText:
+                                            //           "How do you want to upload?",
+                                            //       negativeText: 'Camera',
+                                            //       onNegativeClick: () {
                                             //         Navigator.pop(context);
-                                            //         pickImage(ImageSource.camera);
+                                            //         pickImage(
+                                            //             ImageSource.camera);
                                             //       },
-                                            //       child:Text("Camera",
-                                            //         style: TextStyle(
-                                            //             color: Colors.black,
-                                            //             fontSize: 20
-                                            //         ),),
-                                            //       color: buttonColor,
-                                            //     ),
-                                            //   ),
-                                            //   secondButton: Container(
-                                            //
-                                            //
-                                            //     decoration: BoxDecoration(
-                                            //
-                                            //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                            //
-                                            //     child: MaterialButton(
-                                            //
-                                            //       shape: RoundedRectangleBorder(
-                                            //         borderRadius: BorderRadius.all(
-                                            //           Radius.circular(10),
-                                            //         ),
-                                            //       ),
-                                            //       onPressed: () {
+                                            //       positiveText: "Gallery",
+                                            //       onPositiveClick: () {
                                             //         Navigator.pop(context);
-                                            //         pickImage(ImageSource.gallery);
-                                            //
+                                            //         pickImage(
+                                            //             ImageSource.gallery);
                                             //       },
-                                            //       child:Text("Gallery",
-                                            //         style: TextStyle(
-                                            //             color: Colors.black,
-                                            //
-                                            //             fontSize: 20
-                                            //         ),),
-                                            //       color: buttonColor,
-                                            //     ),
-                                            //   ),);
+                                            //     );
+                                            //   },
+                                            // );
+
+                                            AnimatedDialogBox.showScaleAlertBox(
+                                              context: context,
+                                              title: Text("Upload Image"),
+                                              icon: Icon(Icons.upload_rounded),
+                                              yourWidget: Text("How do you want to upload?",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w600,
+
+                                                    fontSize: 20
+                                                ),),
+                                              firstButton:  Container(
+                                                decoration: BoxDecoration(
+
+                                                    borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                                child: MaterialButton(
+
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.all(
+                                                      Radius.circular(10),
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    pickImage(ImageSource.camera);
+                                                  },
+                                                  child:Text("Camera",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 20
+                                                    ),),
+                                                  color: buttonColor,
+                                                ),
+                                              ),
+                                              secondButton: Container(
+
+
+                                                decoration: BoxDecoration(
+
+                                                    borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                                child: MaterialButton(
+
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.all(
+                                                      Radius.circular(10),
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    pickImage(ImageSource.gallery);
+
+                                                  },
+                                                  child:Text("Gallery",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+
+                                                        fontSize: 20
+                                                    ),),
+                                                  color: buttonColor,
+                                                ),
+                                              ),);
                                           },
                                           icon: Icon(
                                             Icons.camera_alt,
@@ -442,7 +443,7 @@ class _AddressDetailsState extends State<AddressDetails> {
                                               .then((value) {
                                             setState(() {});
                                           });
-                                          // animated_dialog_box.showScaleAlertBox(
+                                          // AnimatedDialogBox.showScaleAlertBox(
                                           //   context: context,
                                           //   title: Text("Reason of Rejection"),
                                           //   icon: Icon(Icons.cancel_outlined),
@@ -675,92 +676,92 @@ class _AddressDetailsState extends State<AddressDetails> {
                               )
                             : InkWell(
                                 onTap: () {
-                                  showAnimatedDialog(
-                                    context: context,
-                                    barrierDismissible: true,
-                                    builder: (BuildContext context) {
-                                      return ClassicGeneralDialogWidget(
-                                        titleText: 'Upload Image',
-                                        contentText:
-                                            "How do you want to upload?",
-                                        negativeText: 'Camera',
-                                        onNegativeClick: () {
-                                          Navigator.pop(context);
-                                          pickImage(ImageSource.camera);
-                                        },
-                                        positiveText: "Gallery",
-                                        onPositiveClick: () {
-                                          Navigator.pop(context);
-                                          pickImage(ImageSource.gallery);
-                                        },
-                                      );
-                                    },
-                                  );
-
-                                  // animated_dialog_box.showScaleAlertBox(
+                                  // showAnimatedDialog(
                                   //   context: context,
-                                  //   title: Text("Upload Image"),
-                                  //   icon: Icon(Icons.upload_rounded),
-                                  //   yourWidget: Text("How do you want to upload?",
-                                  //     textAlign: TextAlign.center,
-                                  //     style: TextStyle(
-                                  //         color: Colors.black,
-                                  //         fontWeight: FontWeight.w600,
-                                  //
-                                  //         fontSize: 20
-                                  //     ),),
-                                  //   firstButton:  Container(
-                                  //     decoration: BoxDecoration(
-                                  //
-                                  //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  //
-                                  //     child: MaterialButton(
-                                  //
-                                  //       shape: RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.all(
-                                  //           Radius.circular(10),
-                                  //         ),
-                                  //       ),
-                                  //       onPressed: () {
+                                  //   barrierDismissible: true,
+                                  //   builder: (BuildContext context) {
+                                  //     return ClassicGeneralDialogWidget(
+                                  //       titleText: 'Upload Image',
+                                  //       contentText:
+                                  //           "How do you want to upload?",
+                                  //       negativeText: 'Camera',
+                                  //       onNegativeClick: () {
                                   //         Navigator.pop(context);
                                   //         pickImage(ImageSource.camera);
                                   //       },
-                                  //       child:Text("Camera",
-                                  //         style: TextStyle(
-                                  //             color: Colors.black,
-                                  //             fontSize: 20
-                                  //         ),),
-                                  //       color: buttonColor,
-                                  //     ),
-                                  //   ),
-                                  //   secondButton: Container(
-                                  //
-                                  //
-                                  //     decoration: BoxDecoration(
-                                  //
-                                  //         borderRadius: BorderRadius.all(Radius.circular(10))),
-                                  //
-                                  //     child: MaterialButton(
-                                  //
-                                  //       shape: RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.all(
-                                  //           Radius.circular(10),
-                                  //         ),
-                                  //       ),
-                                  //       onPressed: () {
+                                  //       positiveText: "Gallery",
+                                  //       onPositiveClick: () {
                                   //         Navigator.pop(context);
                                   //         pickImage(ImageSource.gallery);
-                                  //
                                   //       },
-                                  //       child:Text("Gallery",
-                                  //         style: TextStyle(
-                                  //             color: Colors.black,
-                                  //
-                                  //             fontSize: 20
-                                  //         ),),
-                                  //       color: buttonColor,
-                                  //     ),
-                                  //   ),);
+                                  //     );
+                                  //   },
+                                  // );
+
+                                  AnimatedDialogBox.showScaleAlertBox(
+                                    context: context,
+                                    title: Text("Upload Image"),
+                                    icon: Icon(Icons.upload_rounded),
+                                    yourWidget: Text("How do you want to upload?",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w600,
+
+                                          fontSize: 20
+                                      ),),
+                                    firstButton:  Container(
+                                      decoration: BoxDecoration(
+
+                                          borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                      child: MaterialButton(
+
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          pickImage(ImageSource.camera);
+                                        },
+                                        child:Text("Camera",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20
+                                          ),),
+                                        color: buttonColor,
+                                      ),
+                                    ),
+                                    secondButton: Container(
+
+
+                                      decoration: BoxDecoration(
+
+                                          borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                                      child: MaterialButton(
+
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          pickImage(ImageSource.gallery);
+
+                                        },
+                                        child:Text("Gallery",
+                                          style: TextStyle(
+                                              color: Colors.black,
+
+                                              fontSize: 20
+                                          ),),
+                                        color: buttonColor,
+                                      ),
+                                    ),);
                                 },
                                 child: Icon(
                                   Icons.image,

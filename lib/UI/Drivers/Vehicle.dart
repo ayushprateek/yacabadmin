@@ -459,7 +459,7 @@ class _VehicleState extends State<Vehicle> {
                                     .then((value) {
                                   setState(() {});
                                 });
-                                // animated_dialog_box.showScaleAlertBox(
+                                // AnimatedDialogBox.showScaleAlertBox(
                                 //   context: context,
                                 //   title: Text("Reason of Rejection"),
                                 //   icon: Icon(Icons.cancel_outlined),

@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:yacabadmin/Components/Customs.dart';
 import 'package:yacabadmin/Services/CustomLaunchURL.dart';
 import 'package:yacabadmin/UI/Drivers/DriversAccount.dart';
+import 'package:yacabadmin/UI/animated_dialog_box.dart';
 
 class Booking extends StatefulWidget {
   String booking_id, date;
@@ -557,85 +559,85 @@ class _BookingState extends State<Booking> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        showAnimatedDialog(
-                                          context: context,
-                                          barrierDismissible: true,
-                                          builder: (BuildContext context) {
-                                            return ClassicGeneralDialogWidget(
-                                              titleText: 'Complete',
-                                              contentText:
-                                                  'Are you sure you want to complete the trip?',
-                                              negativeText: 'Cancel',
-                                              positiveText: "DROP OFF",
-                                              onPositiveClick: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              onNegativeClick: () {
-                                                Navigator.pop(context);
-                                                dropOff();
-                                              },
-                                            );
-                                          },
-                                        );
-                                        // animated_dialog_box.showScaleAlertBox(
+                                        // showAnimatedDialog(
                                         //   context: context,
-                                        //   title: Text("Complete"),
-                                        //   icon: Icon(FlutterIcons.check_ant),
-                                        //   yourWidget: Text(
-                                        //     "Are you sure you want to complete the trip?",
-                                        //     textAlign: TextAlign.center,
-                                        //     style: TextStyle(
-                                        //         color: Colors.black,
-                                        //         fontWeight: FontWeight.w600,
-                                        //         fontSize: 20),
-                                        //   ),
-                                        //   firstButton: Container(
-                                        //     decoration: BoxDecoration(
-                                        //         borderRadius: BorderRadius.all(
-                                        //             Radius.circular(10))),
-                                        //     child: MaterialButton(
-                                        //       shape: RoundedRectangleBorder(
-                                        //         borderRadius: BorderRadius.all(
-                                        //           Radius.circular(10),
-                                        //         ),
-                                        //       ),
-                                        //       onPressed: () {
-                                        //         Navigator.pop(context);
+                                        //   barrierDismissible: true,
+                                        //   builder: (BuildContext context) {
+                                        //     return ClassicGeneralDialogWidget(
+                                        //       titleText: 'Complete',
+                                        //       contentText:
+                                        //           'Are you sure you want to complete the trip?',
+                                        //       negativeText: 'Cancel',
+                                        //       positiveText: "DROP OFF",
+                                        //       onPositiveClick: () {
+                                        //         Navigator.of(context).pop();
                                         //       },
-                                        //       child: Text(
-                                        //         "Cancel",
-                                        //         style: TextStyle(
-                                        //             color: Colors.black,
-                                        //             fontSize: 20),
-                                        //       ),
-                                        //       color:
-                                        //           buttonColor,
-                                        //     ),
-                                        //   ),
-                                        //   secondButton: Container(
-                                        //     decoration: BoxDecoration(
-                                        //         borderRadius: BorderRadius.all(
-                                        //             Radius.circular(10))),
-                                        //     child: MaterialButton(
-                                        //       shape: RoundedRectangleBorder(
-                                        //         borderRadius: BorderRadius.all(
-                                        //           Radius.circular(10),
-                                        //         ),
-                                        //       ),
-                                        //       onPressed: () {
+                                        //       onNegativeClick: () {
                                         //         Navigator.pop(context);
                                         //         dropOff();
                                         //       },
-                                        //       child: Text(
-                                        //         "DROP OFF",
-                                        //         style: TextStyle(
-                                        //             color: Colors.white,
-                                        //             fontSize: 20),
-                                        //       ),
-                                        //       color: Colors.red,
-                                        //     ),
-                                        //   ),
+                                        //     );
+                                        //   },
                                         // );
+                                        AnimatedDialogBox.showScaleAlertBox(
+                                          context: context,
+                                          title: Text("Complete"),
+                                          icon: Icon(MdiIcons.check),
+                                          yourWidget: Text(
+                                            "Are you sure you want to complete the trip?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 20),
+                                          ),
+                                          firstButton: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10))),
+                                            child: MaterialButton(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                "Cancel",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20),
+                                              ),
+                                              color:
+                                                  buttonColor,
+                                            ),
+                                          ),
+                                          secondButton: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10))),
+                                            child: MaterialButton(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                dropOff();
+                                              },
+                                              child: Text(
+                                                "DROP OFF",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                              ),
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        );
                                       },
                                       child: Text(
                                         "DROP OFF",

@@ -268,7 +268,7 @@ class _EditCustomerState extends State<EditCustomer> {
                                           //     );
                                           //   },
                                           // );
-                                          // animated_dialog_box.showScaleAlertBox(
+                                          // AnimatedDialogBox.showScaleAlertBox(
                                           //   context: context,
                                           //   title: Text("Reason of Rejection"),
                                           //   icon: Icon(Icons.cancel_outlined),
